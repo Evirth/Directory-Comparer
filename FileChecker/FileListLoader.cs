@@ -18,10 +18,12 @@ namespace FileChecker
         {
             List<string> files = Directory.GetFiles(pPath, "*.*", SearchOption.AllDirectories).ToList();
 
-            foreach (var item in files)
+            for (int i = 0; i < files.Count; i++)
             {
-                item.TrimEnd('\\');
+                files[i] = files[i].Substring(pPath.Length + 1);
             }
+                
+
             return files;
         }
     }

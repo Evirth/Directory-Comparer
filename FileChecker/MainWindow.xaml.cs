@@ -50,6 +50,7 @@ namespace FileChecker
             if (!string.IsNullOrEmpty(_Dialog.SelectedPath))
             {
                 SourcePath.Text = _Dialog.SelectedPath;
+                SourceFilesTab.Items.Clear();
                 _Files.SourceFiles = FileListLoader.LoadFiles(SourcePath.Text);
 
                 foreach (var file in _Files.SourceFiles)
