@@ -22,8 +22,23 @@ namespace FileChecker
             {
                 files[i] = files[i].Substring(pPath.Length + 1);
             }
-                
+            files.Sort();
+            return files;
+        }
 
+        public List<string> ShowOverFiles()
+        {
+            List<string> files = new List<string>();
+            files = SourceFiles.Except(TargetFiles).ToList();
+            files.Sort();
+            return files;
+        }
+
+        public List<string> ShowMissingFiles()
+        {
+            List<string> files = new List<string>();
+            files = TargetFiles.Except(SourceFiles).ToList();
+            files.Sort();
             return files;
         }
     }

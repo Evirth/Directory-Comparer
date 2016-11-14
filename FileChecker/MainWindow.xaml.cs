@@ -47,16 +47,40 @@ namespace FileChecker
         {
             System.Windows.Forms.FolderBrowserDialog _Dialog = new System.Windows.Forms.FolderBrowserDialog();
             _Dialog.ShowDialog();
+
             if (!string.IsNullOrEmpty(_Dialog.SelectedPath))
             {
                 SourcePath.Text = _Dialog.SelectedPath;
                 SourceFilesTab.Items.Clear();
+                OverTab.Items.Clear();
+                MissingFilesTab.Items.Clear();
+
                 _Files.SourceFiles = FileListLoader.LoadFiles(SourcePath.Text);
 
                 foreach (var file in _Files.SourceFiles)
                 {
                     SourceFilesTab.Items.Add(file);
-                } 
+                }
+
+                if (TargetFilesTab.Items.Count != 0)
+                {
+                    _Files.OverFiles = _Files.ShowOverFiles();
+                    if (_Files.OverFiles.Count > 0)
+                    {
+                        foreach (var file in _Files.OverFiles)
+                        {
+                            OverTab.Items.Add(file);
+                        }
+                    }
+                    _Files.MissingFiles = _Files.ShowMissingFiles();
+                    if (_Files.MissingFiles.Count > 0)
+                    {
+                        foreach (var file in _Files.MissingFiles)
+                        {
+                            MissingFilesTab.Items.Add(file);
+                        }
+                    }
+                }
             }
             else
             {
@@ -84,7 +108,44 @@ namespace FileChecker
         {
             System.Windows.Forms.FolderBrowserDialog _Dialog = new System.Windows.Forms.FolderBrowserDialog();
             _Dialog.ShowDialog();
-            TargetPath.Text = _Dialog.SelectedPath;
+            if (!string.IsNullOrEmpty(_Dialog.SelectedPath))
+            {
+                TargetPath.Text = _Dialog.SelectedPath;
+                TargetFilesTab.Items.Clear();
+                OverTab.Items.Clear();
+                MissingFilesTab.Items.Clear();
+
+                _Files.TargetFiles = FileListLoader.LoadFiles(TargetPath.Text);
+
+                foreach (var file in _Files.TargetFiles)
+                {
+                    TargetFilesTab.Items.Add(file);
+                }
+
+                if (SourceFilesTab.Items.Count != 0)
+                {
+                    _Files.OverFiles = _Files.ShowOverFiles();
+                    if (_Files.OverFiles.Count > 0)
+                    {
+                        foreach (var file in _Files.OverFiles)
+                        {
+                            OverTab.Items.Add(file);
+                        }
+                    }
+                    _Files.MissingFiles = _Files.ShowMissingFiles();
+                    if (_Files.MissingFiles.Count > 0)
+                    {
+                        foreach (var file in _Files.MissingFiles)
+                        {
+                            MissingFilesTab.Items.Add(file);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                TargetPath_LostFocus(sender, e);
+            }
         }
     }
 }
