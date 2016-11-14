@@ -5,8 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FileChecker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="File Checker" Height="720" Width="1080" MinHeight="720" ResizeMode="CanMinimize">
     <Grid>
-        
+        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <TextBox x:Name="SourcePath" Height="20" Width="300" Margin="70,70,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Source path..." GotFocus="SourcePath_GotFocus" LostFocus="SourcePath_LostFocus"/>
+            <Button x:Name="SourcePathButton" Content="Browse" Height="20" Width="70" Margin="375,-20,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="SourcePathButton_Click"/>
+            <TextBox x:Name="TargetPath" Height="20" Width="300" Margin="0,-20,70,0" VerticalAlignment="Top" HorizontalAlignment="Right" TextWrapping="Wrap" Text="Target path..." GotFocus="TargetPath_GotFocus" LostFocus="TargetPath_LostFocus"/>
+            <Button x:Name="TargetPathButton" Content="Browse" Height="20" Width="70" Margin="0,-20,375,0" VerticalAlignment="Top" HorizontalAlignment="Right" Click="TargetPathButton_Click"/>
+            
+            <TabControl x:Name="SourceFilesList" Height="400" Width="470" Margin="35,100,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Left">
+                <TabItem Header="Source Files">
+                    <Grid Background="White">
+                        <ListBox x:Name="SourceFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Over">
+                    <Grid Background="White">
+                        <ListBox x:Name="OverTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Missing">
+                    <Grid Background="White">
+                        <ListBox x:Name="MissingFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+
+            <TabControl x:Name="TargetFileList" Height="400" Width="470" Margin="0,-400,35,0" VerticalAlignment="Stretch" HorizontalAlignment="Right">
+                <TabItem Header="Target Files">
+                    <Grid Background="White">
+                        <ListBox x:Name="TargetFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </StackPanel>
     </Grid>
 </Window>
