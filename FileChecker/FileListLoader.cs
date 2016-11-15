@@ -9,172 +9,84 @@ namespace FileChecker
 {
     public class FileListLoader
     {
-        public List<FileInfo> SourceFiles { get; set; }
-        public List<FileInfo> TargetFiles { get; set; }
-        public List<FileInfo> OverFiles { get; set; }
-        public List<FileInfo> MissingFiles { get; set; }
+        public List<string> SourceFiles { get; set; }
+        public List<string> TargetFiles { get; set; }
+        public List<string> OverFiles { get; set; }
+        public List<string> MissingFiles { get; set; }
 
-        public static List<FileInfo> LoadFiles(string pPath)
+        public static List<string> LoadFiles(string pPath)
         {
-            DirectoryInfo dir = new DirectoryInfo(pPath);
-            List<FileInfo> files = dir.GetFiles().ToList();
+            List<string> files = Directory.GetFiles(pPath, "*.*", SearchOption.AllDirectories).ToList();
 
-            //for (int i = 0; i < files.Count; i++)
-            //{
-            //    files[i] = files[i].Substring(pPath.Length + 1);
-            //}
-            //files.Sort();
+            for (int i = 0; i < files.Count; i++)
+            {
+                files[i] = files[i].Substring(pPath.Length + 1);
+            }
+            files.Sort();
             return files;
         }
 
-        public List<FileInfo> ShowOverFiles()
+        public List<string> ShowOverFiles()
         {
-            List<FileInfo> files = new List<FileInfo>();
+            List<string> files = new List<string>();
             files = SourceFiles.Except(TargetFiles).ToList();
-            //files.Sort();
+            files.Sort();
             return files;
         }
 
-        public List<FileInfo> ShowMissingFiles()
+        public List<string> ShowMissingFiles()
         {
-            List<FileInfo> files = new List<FileInfo>();
-
-            //foreach (var item in TargetFiles)
-            //{
-            //    if (item.Value.Name.Except(SourceFiles[item.i].Name,))
-            //    {
-            //        files.Add(item); 
-            //    }
-            //}
-            //List<FileInfo> allItems = TargetFiles.Union(SourceFiles, new FileInfoComparer()).ToList();
-            //List<FileInfo> commonItems = TargetFiles.Intersect(SourceFiles, new FileInfoEqualityComparer()).ToList();
-            //List<FileInfo> difference = allItems.Except(commonItems, new FileInfoEqualityComparer()).ToList();
-
-            //files = SourceFiles.Union(TargetFiles, new FileInfoEqualityComparer()).ToList();
-            //var x = files.Distinct().ToList();
-            //var y = 
-
-            int[] it = new int[TargetFiles.Count];
-            int[] js = new int[SourceFiles.Count];
-            string[] t = new string[TargetFiles.Count];
-            string[] s = new string[SourceFiles.Count];
-            for (int i = 0; i < t.Length; i++)
-            {
-                t[i] = TargetFiles[i].FullName;
-            }
-            for (int i = 0; i < s.Length; i++)
-            {
-                s[i] = SourceFiles[i].FullName;
-            }
-            var asd = s.Except(t).ToArray();
-
-            //files.Sort();
+            List<string> files = new List<string>();
+            files = TargetFiles.Except(SourceFiles).ToList();
+            files.Sort();
             return files;
-        }
-
-        //public void DirectoryCopy(string pSourceDirName, string pDestDirName, bool pCopySubDirs)
-        //{
-        //    // Get the subdirectories for the specified directory.
-        //    DirectoryInfo dir = new DirectoryInfo(pSourceDirName);
-
-        //    if (!dir.Exists)
-        //    {
-        //        throw new DirectoryNotFoundException(
-        //            "Source directory does not exist or could not be found: "
-        //            + pSourceDirName);
-        //    }
-
-        //    DirectoryInfo[] dirs = dir.GetDirectories();
-        //    // If the destination directory doesn't exist, create it.
-        //    if (!Directory.Exists(pDestDirName))
-        //    {
-        //        Directory.CreateDirectory(pDestDirName);
-        //    }
-
-        //    // Get the files in the directory and copy them to the new location.
-        //    string[] tempMissings = new string[MissingFiles.Count];
-        //    for (int i = 0; i < MissingFiles.Count; i++)
-        //    {
-        //        tempMissings[i] = MissingFiles[i];
-        //        if (tempMissings[i].IndexOf('\\') > 0)
-        //        {
-        //            tempMissings[i] = ReverseString(tempMissings[i]);
-        //            tempMissings[i] = tempMissings[i].Remove(tempMissings[i].IndexOf('\\'));
-        //            tempMissings[i] = ReverseString(tempMissings[i]);
-        //        }
-        //    }
-        //    FileInfo[] files = dir.GetFiles();
-        //    //foreach (var file in tempMissings.Select((Value, i) => new { Value, i }))
-        //    //{
-        //    for (int i = 0; i < tempMissings.Length; i++)
-        //    {
-        //        File.Copy(MainWindow.TrgPth + '\\' + MissingFiles[i], pDestDirName + '\\' + tempMissings[i]); 
-        //    }
-        //        //string temppath = Path.Combine(pDestDirName, tempMissings[file.i]);
-        //        //file.Value.CopyTo(temppath, false);
-        //    //}
-
-        //    // If copying subdirectories, copy them and their contents to new location.
-        //    if (pCopySubDirs)
-        //    {
-        //        foreach (DirectoryInfo subdir in dirs)
-        //        {
-        //            string temppath = Path.Combine(pDestDirName, subdir.Name);
-        //            DirectoryCopy(subdir.FullName, temppath, pCopySubDirs);
-        //        }
-        //    }
-        //}
-
-        private static void DirectoryCopy1(string sourceDirName, string destDirName, bool copySubDirs)
-        {
-            // Get the subdirectories for the specified directory.
-            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
-
-            if (!dir.Exists)
-            {
-                throw new DirectoryNotFoundException(
-                    "Source directory does not exist or could not be found: "
-                    + sourceDirName);
-            }
-
-            DirectoryInfo[] dirs = dir.GetDirectories();
-            // If the destination directory doesn't exist, create it.
-            if (!Directory.Exists(destDirName))
-            {
-                Directory.CreateDirectory(destDirName);
-            }
-
-            // Get the files in the directory and copy them to the new location.
-            FileInfo[] files = dir.GetFiles();
-            foreach (FileInfo file in files)
-            {
-                string temppath = Path.Combine(destDirName, file.Name);
-                file.CopyTo(temppath, false);
-            }
-
-            // If copying subdirectories, copy them and their contents to new location.
-            if (copySubDirs)
-            {
-                foreach (DirectoryInfo subdir in dirs)
-                {
-                    string temppath = Path.Combine(destDirName, subdir.Name);
-                    DirectoryCopy1(subdir.FullName, temppath, copySubDirs);
-                }
-            }
         }
 
         public void Copy(string SourcePath, string DestinationPath)
         {
-            //Now Create all of the directories
-            foreach (string dirPath in Directory.GetDirectories(SourcePath, "*", SearchOption.AllDirectories))
+            List<string> missDirs = new List<string>();
+
+            for (int i = 0; i < MissingFiles.Count; i++)
             {
-                Directory.CreateDirectory(dirPath.Replace(SourcePath, DestinationPath));
+                if (MissingFiles[i].LastIndexOf('\\') > 0)
+                {
+                    missDirs.Add(MissingFiles[i].Remove(MissingFiles[i].LastIndexOf('\\')));
+                }
+            }
+
+            //Now Create all of the directories
+            List<string> dirName = Directory.GetDirectories(SourcePath, "*", SearchOption.AllDirectories).ToList();
+            for (int i = 0; i < dirName.Count; i++)
+            {
+                if (dirName[i].LastIndexOf('\\') > 0)
+                {
+                    dirName[i] = dirName[i].Substring(SourcePath.Length + 1);
+                }
+            }
+
+            foreach (string dir in dirName)
+            {
+                foreach (string item in missDirs)
+                {
+                    if (dir.Equals(item))
+                    {
+                        Directory.CreateDirectory(DestinationPath + '\\' + dir);
+                    }
+                }
             }
 
             //Copy all the files & Replaces any files with the same name
-            foreach (string newPath in Directory.GetFiles(SourcePath, "*.*", SearchOption.AllDirectories))
+            List<string> files = Directory.GetFiles(SourcePath, "*.*", SearchOption.AllDirectories).ToList();
+            
+            for (int i = 0; i < files.Count; i++)
             {
-                File.Copy(newPath, newPath.Replace(SourcePath, DestinationPath), true);
+                files[i] = files[i].Substring(SourcePath.Length + 1);
+            }
+            files = files.Except(SourceFiles).ToList();
+
+            foreach (string file in files)
+            {
+                File.Copy(SourcePath +'\\' + file, DestinationPath + '\\' + file, true);
             }
         }
 
@@ -183,32 +95,6 @@ namespace FileChecker
             char[] charArray = s.ToCharArray();
             Array.Reverse(charArray);
             return new string(charArray);
-        }
-    }
-
-    public class FileInfoEqualityComparer : IEqualityComparer<FileInfo>
-    {
-        public bool Equals(FileInfo x, FileInfo y)
-        {
-            return x.FullName.Equals(y.FullName);
-        }
-
-        public int GetHashCode(FileInfo obj)
-        {
-            return obj.FullName.GetHashCode();
-        }
-    }
-
-    public class FileInfoComparer : IEqualityComparer<FileInfo>
-    {
-        public bool Equals(FileInfo x, FileInfo y)
-        {
-            return x == null ? y == null : (x.Name.Equals(y.FullName, StringComparison.CurrentCultureIgnoreCase) && x.Length == y.Length);
-        }
-
-        public int GetHashCode(FileInfo obj)
-        {
-            return obj.FullName.GetHashCode();
         }
     }
 }

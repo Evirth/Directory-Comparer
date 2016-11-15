@@ -22,6 +22,7 @@ namespace FileChecker
     {
         FileListLoader _Files = new FileListLoader();
         public static string TrgPth { get; set; }
+        public static string SrcPth { get; set; }
 
         public MainWindow()
         {
@@ -52,6 +53,7 @@ namespace FileChecker
             if (!string.IsNullOrEmpty(_Dialog.SelectedPath))
             {
                 SourcePath.Text = _Dialog.SelectedPath;
+                SrcPth = SourcePath.Text;
                 SourceFilesTab.Items.Clear();
                 OverTab.Items.Clear();
                 MissingFilesTab.Items.Clear();
@@ -156,9 +158,7 @@ namespace FileChecker
             _Dialog.ShowDialog();
             if (!string.IsNullOrEmpty(_Dialog.SelectedPath))
             {
-                //_Files.DirectoryCopy(TargetPath.Text, _Dialog.SelectedPath, true);
-                //_Files.Copy(TargetPath.Text, _Dialog.SelectedPath);
-                
+                _Files.Copy(TargetPath.Text, _Dialog.SelectedPath);
             }
         }
     }
