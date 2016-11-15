@@ -157,7 +157,8 @@ namespace FileChecker
             if (!string.IsNullOrEmpty(_Dialog.SelectedPath))
             {
                 //_Files.DirectoryCopy(TargetPath.Text, _Dialog.SelectedPath, true);
-                _Files.Copy(TargetPath.Text, _Dialog.SelectedPath);
+                //_Files.Copy(TargetPath.Text, _Dialog.SelectedPath);
+                
             }
         }
     }
