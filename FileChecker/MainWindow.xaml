@@ -38,6 +38,7 @@
                     </Grid>
                 </TabItem>
             </TabControl>
+            <Button x:Name="CopyMissingsButton" Content="Copy missing files" Height="20" Width="120" Margin="210,20,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="CopyMissingsButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>
