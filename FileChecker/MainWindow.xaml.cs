@@ -21,6 +21,7 @@ namespace FileChecker
     public partial class MainWindow : Window
     {
         FileListLoader _Files = new FileListLoader();
+        public static string TrgPth { get; set; }
 
         public MainWindow()
         {
@@ -100,7 +101,7 @@ namespace FileChecker
         {
             if (string.IsNullOrWhiteSpace(TargetPath.Text))
             {
-                TargetPath.Text = "Target path..";
+                TargetPath.Text = "Target path...";
             }
         }
 
@@ -111,6 +112,7 @@ namespace FileChecker
             if (!string.IsNullOrEmpty(_Dialog.SelectedPath))
             {
                 TargetPath.Text = _Dialog.SelectedPath;
+                TrgPth = TargetPath.Text;
                 TargetFilesTab.Items.Clear();
                 OverTab.Items.Clear();
                 MissingFilesTab.Items.Clear();
@@ -145,6 +147,17 @@ namespace FileChecker
             else
             {
                 TargetPath_LostFocus(sender, e);
+            }
+        }
+
+        private void CopyMissingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.FolderBrowserDialog _Dialog = new System.Windows.Forms.FolderBrowserDialog();
+            _Dialog.ShowDialog();
+            if (!string.IsNullOrEmpty(_Dialog.SelectedPath))
+            {
+                //_Files.DirectoryCopy(TargetPath.Text, _Dialog.SelectedPath, true);
+                _Files.Copy(TargetPath.Text, _Dialog.SelectedPath);
             }
         }
     }
