@@ -80,6 +80,7 @@ namespace DirectoryComparer
                     _Files.MissingFiles = _Files.ShowMissingFiles();
                     if (_Files.MissingFiles.Count > 0)
                     {
+                        CopyMissingsButton.Visibility = Visibility.Visible;
                         foreach (var file in _Files.MissingFiles)
                         {
                             MissingFilesTab.Items.Add(file);
@@ -141,6 +142,7 @@ namespace DirectoryComparer
                     _Files.MissingFiles = _Files.ShowMissingFiles();
                     if (_Files.MissingFiles.Count > 0)
                     {
+                        CopyMissingsButton.Visibility = Visibility.Visible;
                         foreach (var file in _Files.MissingFiles)
                         {
                             MissingFilesTab.Items.Add(file);
@@ -156,11 +158,18 @@ namespace DirectoryComparer
 
         private void CopyMissingsButton_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.Forms.FolderBrowserDialog _Dialog = new System.Windows.Forms.FolderBrowserDialog();
-            _Dialog.ShowDialog();
-            if (!string.IsNullOrEmpty(_Dialog.SelectedPath))
+            if (_Files.MissingFiles.Count > 0)
             {
-                _Files.Copy(TargetPath.Text, _Dialog.SelectedPath);
+                System.Windows.Forms.FolderBrowserDialog _Dialog = new System.Windows.Forms.FolderBrowserDialog();
+                _Dialog.ShowDialog();
+                if (!string.IsNullOrEmpty(_Dialog.SelectedPath))
+                {
+                    _Files.Copy(TargetPath.Text, _Dialog.SelectedPath);
+                } 
+            }
+            else
+            {
+                MessageBox.Show("No missing files!");
             }
         }
 
