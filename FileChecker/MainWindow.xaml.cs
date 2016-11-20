@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FileChecker
+namespace DirectoryComparer
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -55,7 +57,7 @@ namespace FileChecker
                 SourcePath.Text = _Dialog.SelectedPath;
                 SrcPth = SourcePath.Text;
                 SourceFilesTab.Items.Clear();
-                OverTab.Items.Clear();
+                OverFilesTab.Items.Clear();
                 MissingFilesTab.Items.Clear();
 
                 _Files.SourceFiles = FileListLoader.LoadFiles(SourcePath.Text);
@@ -65,14 +67,14 @@ namespace FileChecker
                     SourceFilesTab.Items.Add(file);
                 }
 
-                if (TargetFilesTab.Items.Count != 0)
+                if (!TargetPath.Text.Equals("Target path..."))
                 {
                     _Files.OverFiles = _Files.ShowOverFiles();
                     if (_Files.OverFiles.Count > 0)
                     {
                         foreach (var file in _Files.OverFiles)
                         {
-                            OverTab.Items.Add(file);
+                            OverFilesTab.Items.Add(file);
                         }
                     }
                     _Files.MissingFiles = _Files.ShowMissingFiles();
@@ -116,7 +118,7 @@ namespace FileChecker
                 TargetPath.Text = _Dialog.SelectedPath;
                 TrgPth = TargetPath.Text;
                 TargetFilesTab.Items.Clear();
-                OverTab.Items.Clear();
+                OverFilesTab.Items.Clear();
                 MissingFilesTab.Items.Clear();
 
                 _Files.TargetFiles = FileListLoader.LoadFiles(TargetPath.Text);
@@ -126,14 +128,14 @@ namespace FileChecker
                     TargetFilesTab.Items.Add(file);
                 }
 
-                if (SourceFilesTab.Items.Count != 0)
+                if (!SourcePath.Text.Equals("Source path..."))
                 {
                     _Files.OverFiles = _Files.ShowOverFiles();
                     if (_Files.OverFiles.Count > 0)
                     {
                         foreach (var file in _Files.OverFiles)
                         {
-                            OverTab.Items.Add(file);
+                            OverFilesTab.Items.Add(file);
                         }
                     }
                     _Files.MissingFiles = _Files.ShowMissingFiles();
@@ -160,6 +162,26 @@ namespace FileChecker
             {
                 _Files.Copy(TargetPath.Text, _Dialog.SelectedPath);
             }
+        }
+
+        private void SourceFilesTab_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start(SourcePath.Text + "\\" + SourceFilesTab.SelectedItem);
+        }
+
+        private void OverTab_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start(SourcePath.Text + "\\" + OverFilesTab.SelectedItem);
+        }
+
+        private void MissingFilesTab_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start(TargetPath.Text + "\\" + MissingFilesTab.SelectedItem);
+        }
+
+        private void TargetFilesTab_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start(TargetPath.Text + "\\" + TargetFilesTab.SelectedItem);
         }
     }
 }
