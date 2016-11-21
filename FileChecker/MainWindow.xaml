@@ -9,7 +9,7 @@
     <Grid>
         <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <TextBox x:Name="SourcePath" Height="20" Width="300" Margin="70,70,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Source path..." GotFocus="SourcePath_GotFocus" LostFocus="SourcePath_LostFocus" Focusable="False"/>
-            <Button x:Name="SourcePathButton" Content="Browse" Height="20" Width="70" Margin="375,-20,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="SourcePathButton_Click"/>
+            <Button x:Name="SourcePathButton" Content="Browse" Height="20" Width="70" Margin="375,-20,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="SourcePathButton_Click" />
             <TextBox x:Name="TargetPath" Height="20" Width="300" Margin="0,-20,70,0" VerticalAlignment="Top" HorizontalAlignment="Right" TextWrapping="Wrap" Text="Target path..." GotFocus="TargetPath_GotFocus" LostFocus="TargetPath_LostFocus" Focusable="False"/>
             <Button x:Name="TargetPathButton" Content="Browse" Height="20" Width="70" Margin="0,-20,375,0" VerticalAlignment="Top" HorizontalAlignment="Right" Click="TargetPathButton_Click"/>
             
@@ -38,7 +38,7 @@
                     </Grid>
                 </TabItem>
             </TabControl>
-            <Button x:Name="CopyMissingsButton" Content="Copy missing files" Height="20" Width="120" Margin="210,20,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="CopyMissingsButton_Click" IsHitTestVisible="True" Visibility="Hidden"/>
+            <Button x:Name="CopyMissingsButton" Content="Copy missing files" Height="20" Width="120" Margin="210,20,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="CopyMissingsButton_Click" IsHitTestVisible="True" IsEnabled="False"/>
         </StackPanel>
     </Grid>
 </Window>

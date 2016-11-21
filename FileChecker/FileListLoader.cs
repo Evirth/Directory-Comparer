@@ -42,7 +42,7 @@ namespace DirectoryComparer
             return files;
         }
 
-        public void Copy(string SourcePath, string DestinationPath)
+        public void Copy(string pSourcePath, string pDestinationPath)
         {
             List<string> missDirs = new List<string>();
 
@@ -55,12 +55,12 @@ namespace DirectoryComparer
             }
 
             //Now Create all of the directories
-            List<string> dirName = Directory.GetDirectories(SourcePath, "*", SearchOption.AllDirectories).ToList();
+            List<string> dirName = Directory.GetDirectories(pSourcePath, "*", SearchOption.AllDirectories).ToList();
             for (int i = 0; i < dirName.Count; i++)
             {
                 if (dirName[i].LastIndexOf('\\') > 0)
                 {
-                    dirName[i] = dirName[i].Substring(SourcePath.Length + 1);
+                    dirName[i] = dirName[i].Substring(pSourcePath.Length + 1);
                 }
             }
 
@@ -70,23 +70,23 @@ namespace DirectoryComparer
                 {
                     if (dir.Equals(item))
                     {
-                        Directory.CreateDirectory(DestinationPath + '\\' + dir);
+                        Directory.CreateDirectory(pDestinationPath + '\\' + dir);
                     }
                 }
             }
 
             //Copy all the files & Replaces any files with the same name
-            List<string> files = Directory.GetFiles(SourcePath, "*.*", SearchOption.AllDirectories).ToList();
+            List<string> files = Directory.GetFiles(pSourcePath, "*.*", SearchOption.AllDirectories).ToList();
             
             for (int i = 0; i < files.Count; i++)
             {
-                files[i] = files[i].Substring(SourcePath.Length + 1);
+                files[i] = files[i].Substring(pSourcePath.Length + 1);
             }
             files = files.Except(SourceFiles).ToList();
 
             foreach (string file in files)
             {
-                File.Copy(SourcePath +'\\' + file, DestinationPath + '\\' + file, true);
+                File.Copy(pSourcePath +'\\' + file, pDestinationPath + '\\' + file, true);
             }
         }
     }

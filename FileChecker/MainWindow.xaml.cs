@@ -54,6 +54,7 @@ namespace DirectoryComparer
 
             if (!string.IsNullOrEmpty(_Dialog.SelectedPath))
             {
+                CopyMissingsButton.IsEnabled = false;
                 SourcePath.Text = _Dialog.SelectedPath;
                 SrcPth = SourcePath.Text;
                 SourceFilesTab.Items.Clear();
@@ -80,7 +81,7 @@ namespace DirectoryComparer
                     _Files.MissingFiles = _Files.ShowMissingFiles();
                     if (_Files.MissingFiles.Count > 0)
                     {
-                        CopyMissingsButton.Visibility = Visibility.Visible;
+                        CopyMissingsButton.IsEnabled = true;
                         foreach (var file in _Files.MissingFiles)
                         {
                             MissingFilesTab.Items.Add(file);
@@ -116,6 +117,7 @@ namespace DirectoryComparer
             _Dialog.ShowDialog();
             if (!string.IsNullOrEmpty(_Dialog.SelectedPath))
             {
+                CopyMissingsButton.IsEnabled = false;
                 TargetPath.Text = _Dialog.SelectedPath;
                 TrgPth = TargetPath.Text;
                 TargetFilesTab.Items.Clear();
@@ -142,7 +144,7 @@ namespace DirectoryComparer
                     _Files.MissingFiles = _Files.ShowMissingFiles();
                     if (_Files.MissingFiles.Count > 0)
                     {
-                        CopyMissingsButton.Visibility = Visibility.Visible;
+                        CopyMissingsButton.IsEnabled = true;
                         foreach (var file in _Files.MissingFiles)
                         {
                             MissingFilesTab.Items.Add(file);
@@ -169,7 +171,7 @@ namespace DirectoryComparer
             }
             else
             {
-                MessageBox.Show("No missing files!");
+                MessageBox.Show("No missing files!", "Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
