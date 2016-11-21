@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace DirectoryComparer
@@ -42,15 +39,15 @@ namespace DirectoryComparer
             return files;
         }
 
-        public void Copy(string pSourcePath, string pDestinationPath)
+        public void Copy(string pSourcePath, string pDestinationPath, List<string> pMissings)
         {
             List<string> missDirs = new List<string>();
 
-            for (int i = 0; i < MissingFiles.Count; i++)
+            for (int i = 0; i < pMissings.Count; i++)
             {
-                if (MissingFiles[i].LastIndexOf('\\') > 0)
+                if (pMissings[i].LastIndexOf('\\') > 0)
                 {
-                    missDirs.Add(MissingFiles[i].Remove(MissingFiles[i].LastIndexOf('\\')));
+                    missDirs.Add(pMissings[i].Remove(pMissings[i].LastIndexOf('\\')));
                 }
             }
 
