@@ -42,6 +42,7 @@ namespace DirectoryComparer
             if (!string.IsNullOrEmpty(_Dialog.SelectedPath))
             {
                 CopyMissingsButton.IsEnabled = false;
+                SourceFilter.IsEnabled = true;
                 SourcePath.Text = _Dialog.SelectedPath;
                 SrcPth = SourcePath.Text;
                 SourceFilesTab.Items.Clear();
@@ -105,6 +106,7 @@ namespace DirectoryComparer
             if (!string.IsNullOrEmpty(_Dialog.SelectedPath))
             {
                 CopyMissingsButton.IsEnabled = false;
+                TargetFilter.IsEnabled = true;
                 TargetPath.Text = _Dialog.SelectedPath;
                 TrgPth = TargetPath.Text;
                 TargetFilesTab.Items.Clear();
@@ -180,6 +182,38 @@ namespace DirectoryComparer
         private void TargetFilesTab_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Process.Start(TargetPath.Text + "\\" + TargetFilesTab.SelectedItem);
+        }
+
+        private void SourceFilter_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (SourceFilter.Text == "Filter...")
+            {
+                SourceFilter.Text = "";
+            }
+        }
+
+        private void SourceFilter_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(SourceFilter.Text))
+            {
+                SourceFilter.Text = "Filter...";
+            }
+        }
+
+        private void TargetFilter_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (TargetFilter.Text == "Filter...")
+            {
+                TargetFilter.Text = "";
+            }
+        }
+
+        private void TargetFilter_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(TargetFilter.Text))
+            {
+                TargetFilter.Text = "Filter...";
+            }
         }
     }
 }

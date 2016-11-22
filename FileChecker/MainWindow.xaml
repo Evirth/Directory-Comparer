@@ -12,8 +12,10 @@
             <Button x:Name="SourcePathButton" Content="Browse" Height="20" Width="70" Margin="375,-20,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="SourcePathButton_Click" />
             <TextBox x:Name="TargetPath" Height="20" Width="300" Margin="0,-20,70,0" VerticalAlignment="Top" HorizontalAlignment="Right" TextWrapping="Wrap" Text="Target path..." GotFocus="TargetPath_GotFocus" LostFocus="TargetPath_LostFocus" Focusable="False"/>
             <Button x:Name="TargetPathButton" Content="Browse" Height="20" Width="70" Margin="0,-20,375,0" VerticalAlignment="Top" HorizontalAlignment="Right" Click="TargetPathButton_Click"/>
-            
-            <TabControl x:Name="SourceFilesList" Height="400" Width="470" Margin="35,100,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Left">
+            <TextBox x:Name="SourceFilter" Height="20" Width="250" Margin="145,70,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Filter..." IsEnabled="False" GotFocus="SourceFilter_GotFocus" LostFocus="SourceFilter_LostFocus" />
+            <TextBox x:Name="TargetFilter" Height="20" Width="250" Margin="0,-20,145,0" VerticalAlignment="Top" HorizontalAlignment="Right" TextWrapping="Wrap" Text="Filter..." IsEnabled="False" GotFocus="TargetFilter_GotFocus" LostFocus="TargetFilter_LostFocus" />
+
+            <TabControl x:Name="SourceFilesList" Height="400" Width="470" Margin="35,30,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Left">
                 <TabItem Header="Source Files">
                     <Grid Background="White">
                         <ListBox x:Name="SourceFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseDoubleClick="SourceFilesTab_MouseDoubleClick"/>
