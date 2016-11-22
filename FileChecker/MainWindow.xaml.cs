@@ -1,12 +1,10 @@
-﻿using System.Diagnostics;
+﻿using System.Data;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 
 namespace DirectoryComparer
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         FileListLoader _Files = new FileListLoader();
@@ -67,6 +65,7 @@ namespace DirectoryComparer
                         }
                     }
                     _Files.MissingFiles = _Files.ShowMissingFiles();
+                    _Files.MissFilesFilter = _Files.MissingFiles;
                     if (_Files.MissingFiles.Count > 0)
                     {
                         CopyMissingsButton.IsEnabled = true;
@@ -131,6 +130,7 @@ namespace DirectoryComparer
                         }
                     }
                     _Files.MissingFiles = _Files.ShowMissingFiles();
+                    _Files.MissFilesFilter = _Files.MissingFiles;
                     if (_Files.MissingFiles.Count > 0)
                     {
                         CopyMissingsButton.IsEnabled = true;
@@ -155,7 +155,7 @@ namespace DirectoryComparer
                 _Dialog.ShowDialog();
                 if (!string.IsNullOrEmpty(_Dialog.SelectedPath))
                 {
-                    _Files.Copy(TargetPath.Text, _Dialog.SelectedPath, _Files.MissingFiles);
+                    _Files.Copy(TargetPath.Text, _Dialog.SelectedPath, _Files.MissFilesFilter);
                 } 
             }
             else
@@ -213,6 +213,56 @@ namespace DirectoryComparer
             if (string.IsNullOrWhiteSpace(TargetFilter.Text))
             {
                 TargetFilter.Text = "Filter...";
+            }
+        }
+
+        private void SourceFilter_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (!SourceFilter.Text.Equals("Filter...") && TargetFilter.IsEnabled)
+            {
+                MissingFilesTab.Items.Clear();
+                if (!string.IsNullOrWhiteSpace(SourceFilter.Text))
+                {
+                    foreach (string str in _Files.MissingFiles)
+                    {
+                        if (str.Contains(SourceFilter.Text))
+                        {
+                            MissingFilesTab.Items.Add(str);
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (string str in _Files.MissingFiles)
+                    {
+                        MissingFilesTab.Items.Add(str);
+                    }
+                }
+            }
+        }
+
+        private void TargetFilter_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (!TargetFilter.Text.Equals("Filter...") && SourceFilter.IsEnabled)
+            {
+                TargetFilesTab.Items.Clear();
+                if (!string.IsNullOrWhiteSpace(TargetFilter.Text))
+                {
+                    foreach (string str in _Files.TargetFiles)
+                    {
+                        if (str.Contains(TargetFilter.Text))
+                        {
+                            TargetFilesTab.Items.Add(str);
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (string str in _Files.TargetFiles)
+                    {
+                        TargetFilesTab.Items.Add(str);
+                    }
+                }
             }
         }
     }

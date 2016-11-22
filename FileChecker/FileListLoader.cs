@@ -10,6 +10,7 @@ namespace DirectoryComparer
         public List<string> TargetFiles { get; set; }
         public List<string> OverFiles { get; set; }
         public List<string> MissingFiles { get; set; }
+        public List<string> MissFilesFilter { get; set; }
 
         public static List<string> LoadFiles(string pPath)
         {
