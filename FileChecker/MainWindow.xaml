@@ -15,18 +15,18 @@
             <TextBox x:Name="SourceFilter" Height="20" Width="250" Margin="145,70,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Filter..." IsEnabled="False" GotFocus="SourceFilter_GotFocus" LostFocus="SourceFilter_LostFocus" TextChanged="SourceFilter_TextChanged" />
             <TextBox x:Name="TargetFilter" Height="20" Width="250" Margin="0,-20,145,0" VerticalAlignment="Top" HorizontalAlignment="Right" TextWrapping="Wrap" Text="Filter..." IsEnabled="False" GotFocus="TargetFilter_GotFocus" LostFocus="TargetFilter_LostFocus" TextChanged="TargetFilter_TextChanged" />
 
-            <TabControl x:Name="SourceFilesList" Height="400" Width="470" Margin="35,30,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Left">
-                <TabItem Header="Source Files">
+            <TabControl x:Name="SourceFilesList" Height="400" Width="470" Margin="35,30,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Left" SelectionChanged="SourceFilesList_SelectionChanged">
+                <TabItem x:Name="SrcTab" Header="Source Files">
                     <Grid Background="White">
                         <ListBox x:Name="SourceFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseDoubleClick="SourceFilesTab_MouseDoubleClick"/>
                     </Grid>
                 </TabItem>
-                <TabItem Header="Over">
+                <TabItem x:Name="OverTab" Header="Over">
                     <Grid Background="White">
                         <ListBox x:Name="OverFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseDoubleClick="OverTab_MouseDoubleClick"/>
                     </Grid>
                 </TabItem>
-                <TabItem Header="Missing">
+                <TabItem x:Name="MissTab" Header="Missing">
                     <Grid Background="White">
                         <ListBox x:Name="MissingFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseDoubleClick="MissingFilesTab_MouseDoubleClick"/>
                     </Grid>
@@ -34,7 +34,7 @@
             </TabControl>
 
             <TabControl x:Name="TargetFileList" Height="400" Width="470" Margin="0,-400,35,0" VerticalAlignment="Stretch" HorizontalAlignment="Right">
-                <TabItem Header="Target Files">
+                <TabItem x:Name="TrgTab" Header="Target Files">
                     <Grid Background="White">
                         <ListBox x:Name="TargetFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseDoubleClick="TargetFilesTab_MouseDoubleClick"/>
                     </Grid>

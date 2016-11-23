@@ -65,7 +65,7 @@ namespace DirectoryComparer
                         }
                     }
                     _Files.MissingFiles = _Files.ShowMissingFiles();
-                    _Files.MissFilesFilter = _Files.MissingFiles;
+                    //_Files.MissFilesFilter = _Files.MissingFiles;
                     if (_Files.MissingFiles.Count > 0)
                     {
                         CopyMissingsButton.IsEnabled = true;
@@ -130,7 +130,7 @@ namespace DirectoryComparer
                         }
                     }
                     _Files.MissingFiles = _Files.ShowMissingFiles();
-                    _Files.MissFilesFilter = _Files.MissingFiles;
+                    //_Files.MissFilesFilter = _Files.MissingFiles;
                     if (_Files.MissingFiles.Count > 0)
                     {
                         CopyMissingsButton.IsEnabled = true;
@@ -155,7 +155,7 @@ namespace DirectoryComparer
                 _Dialog.ShowDialog();
                 if (!string.IsNullOrEmpty(_Dialog.SelectedPath))
                 {
-                    _Files.Copy(TargetPath.Text, _Dialog.SelectedPath, _Files.MissFilesFilter);
+                    _Files.Copy(TargetPath.Text, _Dialog.SelectedPath, _Files.MissingFiles);
                 } 
             }
             else
@@ -218,32 +218,78 @@ namespace DirectoryComparer
 
         private void SourceFilter_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            if (!SourceFilter.Text.Equals("Filter...") && TargetFilter.IsEnabled)
+            if (!SourceFilter.Text.Equals("Filter...") && !SourcePath.Text.Equals("Source path..."))
             {
-                MissingFilesTab.Items.Clear();
-                if (!string.IsNullOrWhiteSpace(SourceFilter.Text))
+                
+                if (SrcTab.IsSelected)
                 {
-                    foreach (string str in _Files.MissingFiles)
+                    SourceFilesTab.Items.Clear();
+                    if (!string.IsNullOrWhiteSpace(SourceFilter.Text))
                     {
-                        if (str.Contains(SourceFilter.Text))
+                        foreach (string str in _Files.SourceFiles)
                         {
-                            MissingFilesTab.Items.Add(str);
+                            if (str.Contains(SourceFilter.Text))
+                            {
+                                SourceFilesTab.Items.Add(str);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (string str in _Files.SourceFiles)
+                        {
+                            SourceFilesTab.Items.Add(str);
                         }
                     }
                 }
-                else
+                else if (OverTab.IsSelected && !TargetPath.Text.Equals("Target path..."))
                 {
-                    foreach (string str in _Files.MissingFiles)
+                    OverFilesTab.Items.Clear();
+                    if (!string.IsNullOrWhiteSpace(SourceFilter.Text))
                     {
-                        MissingFilesTab.Items.Add(str);
+                        foreach (string str in _Files.OverFiles)
+                        {
+                            if (str.Contains(SourceFilter.Text))
+                            {
+                                OverFilesTab.Items.Add(str);
+                            }
+                        }
                     }
+                    else
+                    {
+                        foreach (string str in _Files.OverFiles)
+                        {
+                            OverFilesTab.Items.Add(str);
+                        }
+                    }
+                }
+                else if (MissTab.IsSelected && !TargetPath.Text.Equals("Target path..."))
+                {
+                    MissingFilesTab.Items.Clear();
+                    if (!string.IsNullOrWhiteSpace(SourceFilter.Text))
+                    {
+                        foreach (string str in _Files.MissingFiles)
+                        {
+                            if (str.Contains(SourceFilter.Text))
+                            {
+                                MissingFilesTab.Items.Add(str);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (string str in _Files.MissingFiles)
+                        {
+                            MissingFilesTab.Items.Add(str);
+                        }
+                    } 
                 }
             }
         }
 
         private void TargetFilter_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            if (!TargetFilter.Text.Equals("Filter...") && SourceFilter.IsEnabled)
+            if (!TargetFilter.Text.Equals("Filter..."))
             {
                 TargetFilesTab.Items.Clear();
                 if (!string.IsNullOrWhiteSpace(TargetFilter.Text))
@@ -263,6 +309,32 @@ namespace DirectoryComparer
                         TargetFilesTab.Items.Add(str);
                     }
                 }
+            }
+        }
+
+        private void SourceFilesList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (!SourceFilter.Text.Equals("Filter..."))
+            {
+                SourceFilesTab.Items.Clear();
+                foreach (string str in _Files.SourceFiles)
+                {
+                    SourceFilesTab.Items.Add(str);
+                }
+                if (!TargetPath.Text.Equals("Target path..."))
+                {
+                    OverFilesTab.Items.Clear();
+                    foreach (string str in _Files.OverFiles)
+                    {
+                        OverFilesTab.Items.Add(str);
+                    }
+                    MissingFilesTab.Items.Clear();
+                    foreach (string str in _Files.MissingFiles)
+                    {
+                        MissingFilesTab.Items.Add(str);
+                    }
+                }
+                SourceFilter.Text = "Filter..."; 
             }
         }
     }
