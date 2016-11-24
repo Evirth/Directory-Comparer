@@ -1,12 +1,14 @@
 ﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
+using System.Collections.Specialized;
 
 namespace DirectoryComparer
 {
     public partial class MainWindow : Window
     {
         FileListLoader _Files = new FileListLoader();
+        StringCollection SelectedFilesToCopy = new StringCollection();
 
         public MainWindow()
         {
@@ -339,6 +341,10 @@ namespace DirectoryComparer
                     Process.Start(SourcePath.Text + "\\" + file);
                 }
             }
+            else if ((Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.C)) && SelectedFilesToCopy.Count > 0)
+            {
+                Clipboard.SetFileDropList(SelectedFilesToCopy);
+            }
         }
 
         private void OverFilesTab_KeyDown(object sender, KeyEventArgs e)
@@ -349,6 +355,10 @@ namespace DirectoryComparer
                 {
                     Process.Start(SourcePath.Text + "\\" + file);
                 }
+            }
+            else if ((Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.C)) && SelectedFilesToCopy.Count > 0)
+            {
+                Clipboard.SetFileDropList(SelectedFilesToCopy);
             }
         }
 
@@ -361,6 +371,10 @@ namespace DirectoryComparer
                     Process.Start(TargetPath.Text + "\\" + file);
                 }
             }
+            else if ((Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.C)) && SelectedFilesToCopy.Count > 0)
+            {
+                Clipboard.SetFileDropList(SelectedFilesToCopy);
+            }
         }
 
         private void TargetFilesTab_KeyDown(object sender, KeyEventArgs e)
@@ -372,11 +386,54 @@ namespace DirectoryComparer
                     Process.Start(TargetPath.Text + "\\" + file);
                 }
             }
+            else if ((Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.C)) && SelectedFilesToCopy.Count > 0)
+            {
+                Clipboard.SetFileDropList(SelectedFilesToCopy);
+            }
         }
 
-        private void SourceFilesTab_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        private void ContextMenuCopy_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (SelectedFilesToCopy.Count > 0)
+            {
+                Clipboard.SetFileDropList(SelectedFilesToCopy);
+            }
+        }
+
+        private void SourceFilesTab_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            SelectedFilesToCopy.Clear();
+            foreach (string file in SourceFilesTab.SelectedItems)
+            {
+                SelectedFilesToCopy.Add(SourcePath.Text + "\\" + file);
+            }
+        }
+
+        private void OverFilesTab_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            SelectedFilesToCopy.Clear();
+            foreach (string file in OverFilesTab.SelectedItems)
+            {
+                SelectedFilesToCopy.Add(SourcePath.Text + "\\" + file);
+            }
+        }
+
+        private void MissingFilesTab_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            SelectedFilesToCopy.Clear();
+            foreach (string file in MissingFilesTab.SelectedItems)
+            {
+                SelectedFilesToCopy.Add(TargetPath.Text + "\\" + file);
+            }
+        }
+
+        private void TargetFilesTab_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            SelectedFilesToCopy.Clear();
+            foreach (string file in TargetFilesTab.SelectedItems)
+            {
+                SelectedFilesToCopy.Add(TargetPath.Text + "\\" + file);
+            }
         }
     }
 }

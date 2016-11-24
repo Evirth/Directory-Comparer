@@ -19,10 +19,10 @@
             <TabControl x:Name="SourceFilesList" Height="400" Width="470" Margin="35,30,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Left" SelectionChanged="SourceFilesList_SelectionChanged">
                 <TabItem x:Name="SrcTab" Header="Source Files">
                     <Grid Background="White">
-                        <ListBox x:Name="SourceFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Extended" MouseDoubleClick="SourceFilesTab_MouseDoubleClick" KeyDown="SourceFilesTab_KeyDown" MouseRightButtonDown="SourceFilesTab_MouseRightButtonDown">
+                        <ListBox x:Name="SourceFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Extended" MouseDoubleClick="SourceFilesTab_MouseDoubleClick" KeyDown="SourceFilesTab_KeyDown" SelectionChanged="SourceFilesTab_SelectionChanged">
                             <ListBox.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="Copy" />
+                                    <MenuItem Header="Copy" Click="ContextMenuCopy_Click" />
                                 </ContextMenu>
                             </ListBox.ContextMenu>
                         </ListBox>
@@ -30,12 +30,24 @@
                 </TabItem>
                 <TabItem x:Name="OverTab" Header="Over">
                     <Grid Background="White">
-                        <ListBox x:Name="OverFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Extended" MouseDoubleClick="OverTab_MouseDoubleClick" KeyDown="OverFilesTab_KeyDown"/>
+                        <ListBox x:Name="OverFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Extended" MouseDoubleClick="OverTab_MouseDoubleClick" KeyDown="OverFilesTab_KeyDown" SelectionChanged="OverFilesTab_SelectionChanged">
+                            <ListBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Copy" Click="ContextMenuCopy_Click" />
+                                </ContextMenu>
+                            </ListBox.ContextMenu>
+                        </ListBox>
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="MissTab" Header="Missing">
                     <Grid Background="White">
-                        <ListBox x:Name="MissingFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Extended" MouseDoubleClick="MissingFilesTab_MouseDoubleClick" KeyDown="MissingFilesTab_KeyDown"/>
+                        <ListBox x:Name="MissingFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Extended" MouseDoubleClick="MissingFilesTab_MouseDoubleClick" KeyDown="MissingFilesTab_KeyDown" SelectionChanged="MissingFilesTab_SelectionChanged">
+                            <ListBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Copy" Click="ContextMenuCopy_Click" />
+                                </ContextMenu>
+                            </ListBox.ContextMenu>
+                        </ListBox>
                     </Grid>
                 </TabItem>
             </TabControl>
@@ -43,7 +55,13 @@
             <TabControl x:Name="TargetFileList" Height="400" Width="470" Margin="0,-400,35,0" VerticalAlignment="Stretch" HorizontalAlignment="Right">
                 <TabItem x:Name="TrgTab" Header="Target Files">
                     <Grid Background="White">
-                        <ListBox x:Name="TargetFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Extended" MouseDoubleClick="TargetFilesTab_MouseDoubleClick" KeyDown="TargetFilesTab_KeyDown"/>
+                        <ListBox x:Name="TargetFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Extended" MouseDoubleClick="TargetFilesTab_MouseDoubleClick" KeyDown="TargetFilesTab_KeyDown" SelectionChanged="TargetFilesTab_SelectionChanged">
+                            <ListBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Copy" Click="ContextMenuCopy_Click" />
+                                </ContextMenu>
+                            </ListBox.ContextMenu>
+                        </ListBox>
                     </Grid>
                 </TabItem>
             </TabControl>
