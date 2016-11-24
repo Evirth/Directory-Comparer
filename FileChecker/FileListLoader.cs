@@ -10,7 +10,6 @@ namespace DirectoryComparer
         public List<string> TargetFiles { get; set; }
         public List<string> OverFiles { get; set; }
         public List<string> MissingFiles { get; set; }
-        public List<string> MissFilesFilter { get; set; }
 
         public static List<string> LoadFiles(string pPath)
         {
@@ -24,18 +23,10 @@ namespace DirectoryComparer
             return files;
         }
 
-        public List<string> ShowOverFiles()
+        public List<string> ShowFilesAExceptB(List<string> pA, List<string> pB)
         {
             List<string> files = new List<string>();
-            files = SourceFiles.Except(TargetFiles).ToList();
-            files.Sort();
-            return files;
-        }
-
-        public List<string> ShowMissingFiles()
-        {
-            List<string> files = new List<string>();
-            files = TargetFiles.Except(SourceFiles).ToList();
+            files = pA.Except(pB).ToList();
             files.Sort();
             return files;
         }

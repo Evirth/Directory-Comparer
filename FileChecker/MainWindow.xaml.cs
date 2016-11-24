@@ -1,5 +1,4 @@
-﻿using System.Data;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 
@@ -8,8 +7,6 @@ namespace DirectoryComparer
     public partial class MainWindow : Window
     {
         FileListLoader _Files = new FileListLoader();
-        public static string TrgPth { get; set; }
-        public static string SrcPth { get; set; }
 
         public MainWindow()
         {
@@ -36,17 +33,14 @@ namespace DirectoryComparer
         {
             System.Windows.Forms.FolderBrowserDialog _Dialog = new System.Windows.Forms.FolderBrowserDialog();
             _Dialog.ShowDialog();
-
             if (!string.IsNullOrEmpty(_Dialog.SelectedPath))
             {
                 CopyMissingsButton.IsEnabled = false;
                 SourceFilter.IsEnabled = true;
                 SourcePath.Text = _Dialog.SelectedPath;
-                SrcPth = SourcePath.Text;
                 SourceFilesTab.Items.Clear();
                 OverFilesTab.Items.Clear();
                 MissingFilesTab.Items.Clear();
-
                 _Files.SourceFiles = FileListLoader.LoadFiles(SourcePath.Text);
 
                 foreach (var file in _Files.SourceFiles)
@@ -56,7 +50,7 @@ namespace DirectoryComparer
 
                 if (!TargetPath.Text.Equals("Target path..."))
                 {
-                    _Files.OverFiles = _Files.ShowOverFiles();
+                    _Files.OverFiles = _Files.ShowFilesAExceptB(_Files.SourceFiles, _Files.TargetFiles);
                     if (_Files.OverFiles.Count > 0)
                     {
                         foreach (var file in _Files.OverFiles)
@@ -64,8 +58,7 @@ namespace DirectoryComparer
                             OverFilesTab.Items.Add(file);
                         }
                     }
-                    _Files.MissingFiles = _Files.ShowMissingFiles();
-                    //_Files.MissFilesFilter = _Files.MissingFiles;
+                    _Files.MissingFiles = _Files.ShowFilesAExceptB(_Files.TargetFiles, _Files.SourceFiles);
                     if (_Files.MissingFiles.Count > 0)
                     {
                         CopyMissingsButton.IsEnabled = true;
@@ -102,16 +95,15 @@ namespace DirectoryComparer
         {
             System.Windows.Forms.FolderBrowserDialog _Dialog = new System.Windows.Forms.FolderBrowserDialog();
             _Dialog.ShowDialog();
+
             if (!string.IsNullOrEmpty(_Dialog.SelectedPath))
             {
                 CopyMissingsButton.IsEnabled = false;
                 TargetFilter.IsEnabled = true;
                 TargetPath.Text = _Dialog.SelectedPath;
-                TrgPth = TargetPath.Text;
                 TargetFilesTab.Items.Clear();
                 OverFilesTab.Items.Clear();
                 MissingFilesTab.Items.Clear();
-
                 _Files.TargetFiles = FileListLoader.LoadFiles(TargetPath.Text);
 
                 foreach (var file in _Files.TargetFiles)
@@ -121,7 +113,7 @@ namespace DirectoryComparer
 
                 if (!SourcePath.Text.Equals("Source path..."))
                 {
-                    _Files.OverFiles = _Files.ShowOverFiles();
+                    _Files.OverFiles = _Files.ShowFilesAExceptB(_Files.SourceFiles, _Files.TargetFiles);
                     if (_Files.OverFiles.Count > 0)
                     {
                         foreach (var file in _Files.OverFiles)
@@ -129,8 +121,7 @@ namespace DirectoryComparer
                             OverFilesTab.Items.Add(file);
                         }
                     }
-                    _Files.MissingFiles = _Files.ShowMissingFiles();
-                    //_Files.MissFilesFilter = _Files.MissingFiles;
+                    _Files.MissingFiles = _Files.ShowFilesAExceptB(_Files.TargetFiles, _Files.SourceFiles);
                     if (_Files.MissingFiles.Count > 0)
                     {
                         CopyMissingsButton.IsEnabled = true;
@@ -222,7 +213,6 @@ namespace DirectoryComparer
         {
             if (!SourceFilter.Text.Equals("Filter...") && !SourcePath.Text.Equals("Source path..."))
             {
-                
                 if (SrcTab.IsSelected)
                 {
                     SourceFilesTab.Items.Clear();
