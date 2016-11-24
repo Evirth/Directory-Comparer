@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:DirectoryComparer"
         mc:Ignorable="d"
         Title="Directory Comparer" Height="720" Width="1080" MinHeight="720" ResizeMode="CanMinimize">
+    
     <Grid>
         <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <TextBox x:Name="SourcePath" Height="20" Width="300" Margin="70,70,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Source path..." GotFocus="SourcePath_GotFocus" LostFocus="SourcePath_LostFocus" Focusable="False"/>
@@ -18,7 +19,13 @@
             <TabControl x:Name="SourceFilesList" Height="400" Width="470" Margin="35,30,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Left" SelectionChanged="SourceFilesList_SelectionChanged">
                 <TabItem x:Name="SrcTab" Header="Source Files">
                     <Grid Background="White">
-                        <ListBox x:Name="SourceFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Extended" MouseDoubleClick="SourceFilesTab_MouseDoubleClick" KeyDown="SourceFilesTab_KeyDown"/>
+                        <ListBox x:Name="SourceFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Extended" MouseDoubleClick="SourceFilesTab_MouseDoubleClick" KeyDown="SourceFilesTab_KeyDown" MouseRightButtonDown="SourceFilesTab_MouseRightButtonDown">
+                            <ListBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Copy" />
+                                </ContextMenu>
+                            </ListBox.ContextMenu>
+                        </ListBox>
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="OverTab" Header="Over">

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 
@@ -373,6 +372,11 @@ namespace DirectoryComparer
                     Process.Start(TargetPath.Text + "\\" + file);
                 }
             }
+        }
+
+        private void SourceFilesTab_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            
         }
     }
 }
