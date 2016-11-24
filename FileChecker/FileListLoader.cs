@@ -40,8 +40,9 @@ namespace DirectoryComparer
             return files;
         }
 
-        public void Copy(string pSourcePath, string pDestinationPath, List<string> pMissings)
+        public void Copy(string pSourcePath, string pDestinationPath, string[] pMiss)
         {
+            List<string> pMissings = pMiss.ToList();
             List<string> missDirs = new List<string>();
 
             for (int i = 0; i < pMissings.Count; i++)
@@ -74,15 +75,7 @@ namespace DirectoryComparer
             }
 
             //Copy all the files & Replaces any files with the same name
-            List<string> files = Directory.GetFiles(pSourcePath, "*.*", SearchOption.AllDirectories).ToList();
-            
-            for (int i = 0; i < files.Count; i++)
-            {
-                files[i] = files[i].Substring(pSourcePath.Length + 1);
-            }
-            files = files.Except(SourceFiles).ToList();
-
-            foreach (string file in files)
+            foreach (string file in pMissings)
             {
                 File.Copy(pSourcePath +'\\' + file, pDestinationPath + '\\' + file, true);
             }

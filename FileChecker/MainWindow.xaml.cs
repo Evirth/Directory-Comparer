@@ -149,18 +149,20 @@ namespace DirectoryComparer
 
         private void CopyMissingsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_Files.MissingFiles.Count > 0)
+            if (MissingFilesTab.Items.Count > 0)
             {
                 System.Windows.Forms.FolderBrowserDialog _Dialog = new System.Windows.Forms.FolderBrowserDialog();
                 _Dialog.ShowDialog();
                 if (!string.IsNullOrEmpty(_Dialog.SelectedPath))
                 {
-                    _Files.Copy(TargetPath.Text, _Dialog.SelectedPath, _Files.MissingFiles);
-                } 
+                    string[] FilteredMissings = new string[MissingFilesTab.Items.Count];
+                    MissingFilesTab.Items.CopyTo(FilteredMissings, 0);
+                    _Files.Copy(TargetPath.Text, _Dialog.SelectedPath, FilteredMissings);
+                }
             }
             else
             {
-                MessageBox.Show("No missing files!", "Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("No missing files!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
