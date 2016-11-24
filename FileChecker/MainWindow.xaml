@@ -18,17 +18,17 @@
             <TabControl x:Name="SourceFilesList" Height="400" Width="470" Margin="35,30,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Left" SelectionChanged="SourceFilesList_SelectionChanged">
                 <TabItem x:Name="SrcTab" Header="Source Files">
                     <Grid Background="White">
-                        <ListBox x:Name="SourceFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseDoubleClick="SourceFilesTab_MouseDoubleClick"/>
+                        <ListBox x:Name="SourceFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Extended" MouseDoubleClick="SourceFilesTab_MouseDoubleClick" KeyDown="SourceFilesTab_KeyDown"/>
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="OverTab" Header="Over">
                     <Grid Background="White">
-                        <ListBox x:Name="OverFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseDoubleClick="OverTab_MouseDoubleClick"/>
+                        <ListBox x:Name="OverFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Extended" MouseDoubleClick="OverTab_MouseDoubleClick" KeyDown="OverFilesTab_KeyDown"/>
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="MissTab" Header="Missing">
                     <Grid Background="White">
-                        <ListBox x:Name="MissingFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseDoubleClick="MissingFilesTab_MouseDoubleClick"/>
+                        <ListBox x:Name="MissingFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Extended" MouseDoubleClick="MissingFilesTab_MouseDoubleClick" KeyDown="MissingFilesTab_KeyDown"/>
                     </Grid>
                 </TabItem>
             </TabControl>
@@ -36,7 +36,7 @@
             <TabControl x:Name="TargetFileList" Height="400" Width="470" Margin="0,-400,35,0" VerticalAlignment="Stretch" HorizontalAlignment="Right">
                 <TabItem x:Name="TrgTab" Header="Target Files">
                     <Grid Background="White">
-                        <ListBox x:Name="TargetFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseDoubleClick="TargetFilesTab_MouseDoubleClick"/>
+                        <ListBox x:Name="TargetFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Extended" MouseDoubleClick="TargetFilesTab_MouseDoubleClick" KeyDown="TargetFilesTab_KeyDown"/>
                     </Grid>
                 </TabItem>
             </TabControl>

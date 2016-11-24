@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 
@@ -327,6 +328,50 @@ namespace DirectoryComparer
                     }
                 }
                 SourceFilter.Text = "Filter..."; 
+            }
+        }
+
+        private void SourceFilesTab_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(Keyboard.IsKeyDown(Key.Enter))
+            {
+                foreach (string file in SourceFilesTab.SelectedItems)
+                {
+                    Process.Start(SourcePath.Text + "\\" + file);
+                }
+            }
+        }
+
+        private void OverFilesTab_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.Enter))
+            {
+                foreach (string file in OverFilesTab.SelectedItems)
+                {
+                    Process.Start(SourcePath.Text + "\\" + file);
+                }
+            }
+        }
+
+        private void MissingFilesTab_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.Enter))
+            {
+                foreach (string file in MissingFilesTab.SelectedItems)
+                {
+                    Process.Start(TargetPath.Text + "\\" + file);
+                }
+            }
+        }
+
+        private void TargetFilesTab_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.Enter))
+            {
+                foreach (string file in TargetFilesTab.SelectedItems)
+                {
+                    Process.Start(TargetPath.Text + "\\" + file);
+                }
             }
         }
     }
