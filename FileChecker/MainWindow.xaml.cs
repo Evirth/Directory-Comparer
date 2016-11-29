@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 using System.Collections.Specialized;
+using System.Collections.Generic;
 
 namespace DirectoryComparer
 {
@@ -345,6 +346,10 @@ namespace DirectoryComparer
             {
                 Clipboard.SetFileDropList(SelectedFilesToCopy);
             }
+            else if (Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.A))
+            {
+                SourceFilesTab.SelectAll();
+            }
         }
 
         private void OverFilesTab_KeyDown(object sender, KeyEventArgs e)
@@ -359,6 +364,10 @@ namespace DirectoryComparer
             else if ((Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.C)) && SelectedFilesToCopy.Count > 0)
             {
                 Clipboard.SetFileDropList(SelectedFilesToCopy);
+            }
+            else if (Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.A))
+            {
+                OverFilesTab.SelectAll();
             }
         }
 
@@ -375,6 +384,10 @@ namespace DirectoryComparer
             {
                 Clipboard.SetFileDropList(SelectedFilesToCopy);
             }
+            else if (Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.A))
+            {
+                MissingFilesTab.SelectAll();
+            }
         }
 
         private void TargetFilesTab_KeyDown(object sender, KeyEventArgs e)
@@ -389,6 +402,10 @@ namespace DirectoryComparer
             else if ((Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.C)) && SelectedFilesToCopy.Count > 0)
             {
                 Clipboard.SetFileDropList(SelectedFilesToCopy);
+            }
+            else if (Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.A))
+            {
+                TargetFilesTab.SelectAll();
             }
         }
 
