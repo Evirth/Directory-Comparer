@@ -417,6 +417,46 @@ namespace DirectoryComparer
             }
         }
 
+        private void ContextMenuSourceSelectAll_Click(object sender, RoutedEventArgs e)
+        {
+            SourceFilesTab.SelectAll();
+        }
+
+        private void ContextMenuSourceUnselectAll_Click(object sender, RoutedEventArgs e)
+        {
+            SourceFilesTab.UnselectAll();
+        }
+
+        private void ContextMenuOverSelectAll_Click(object sender, RoutedEventArgs e)
+        {
+            OverFilesTab.SelectAll();
+        }
+
+        private void ContextMenuOverUnselectAll_Click(object sender, RoutedEventArgs e)
+        {
+            OverFilesTab.UnselectAll();
+        }
+
+        private void ContextMenuMissingSelectAll_Click(object sender, RoutedEventArgs e)
+        {
+            MissingFilesTab.SelectAll();
+        }
+
+        private void ContextMenuMissingUnselectAll_Click(object sender, RoutedEventArgs e)
+        {
+            MissingFilesTab.UnselectAll();
+        }
+
+        private void ContextMenuTargetSelectAll_Click(object sender, RoutedEventArgs e)
+        {
+            TargetFilesTab.SelectAll();
+        }
+
+        private void ContextMenuTargetUnselectAll_Click(object sender, RoutedEventArgs e)
+        {
+            TargetFilesTab.UnselectAll();
+        }
+
         private void SourceFilesTab_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             SelectedFilesToCopy.Clear();

@@ -22,7 +22,10 @@
                         <ListBox x:Name="SourceFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Extended" MouseDoubleClick="SourceFilesTab_MouseDoubleClick" KeyDown="SourceFilesTab_KeyDown" SelectionChanged="SourceFilesTab_SelectionChanged">
                             <ListBox.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="Copy" Click="ContextMenuCopy_Click" />
+                                    <MenuItem Header="Copy" InputGestureText="Ctrl+C" Click="ContextMenuCopy_Click" />
+                                    <Separator />
+                                    <MenuItem Header="Select All" InputGestureText="Ctrl+A" Click="ContextMenuSourceSelectAll_Click" />
+                                    <MenuItem Header="Unselect All" Click="ContextMenuSourceUnselectAll_Click" />
                                 </ContextMenu>
                             </ListBox.ContextMenu>
                         </ListBox>
@@ -33,7 +36,10 @@
                         <ListBox x:Name="OverFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Extended" MouseDoubleClick="OverTab_MouseDoubleClick" KeyDown="OverFilesTab_KeyDown" SelectionChanged="OverFilesTab_SelectionChanged">
                             <ListBox.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="Copy" Click="ContextMenuCopy_Click" />
+                                    <MenuItem Header="Copy" InputGestureText="Ctrl+C" Click="ContextMenuCopy_Click" />
+                                    <Separator />
+                                    <MenuItem Header="Select All" InputGestureText="Ctrl+A" Click="ContextMenuOverSelectAll_Click" />
+                                    <MenuItem Header="Unselect All" Click="ContextMenuOverUnselectAll_Click" />
                                 </ContextMenu>
                             </ListBox.ContextMenu>
                         </ListBox>
@@ -44,7 +50,10 @@
                         <ListBox x:Name="MissingFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Extended" MouseDoubleClick="MissingFilesTab_MouseDoubleClick" KeyDown="MissingFilesTab_KeyDown" SelectionChanged="MissingFilesTab_SelectionChanged">
                             <ListBox.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="Copy" Click="ContextMenuCopy_Click" />
+                                    <MenuItem Header="Copy" InputGestureText="Ctrl+C" Click="ContextMenuCopy_Click" />
+                                    <Separator />
+                                    <MenuItem Header="Select All" InputGestureText="Ctrl+A" Click="ContextMenuMissingSelectAll_Click" />
+                                    <MenuItem Header="Unselect All" Click="ContextMenuMissingUnselectAll_Click" />
                                 </ContextMenu>
                             </ListBox.ContextMenu>
                         </ListBox>
@@ -58,7 +67,10 @@
                         <ListBox x:Name="TargetFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Extended" MouseDoubleClick="TargetFilesTab_MouseDoubleClick" KeyDown="TargetFilesTab_KeyDown" SelectionChanged="TargetFilesTab_SelectionChanged">
                             <ListBox.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="Copy" Click="ContextMenuCopy_Click" />
+                                    <MenuItem Header="Copy" InputGestureText="Ctrl+C" Click="ContextMenuCopy_Click" />
+                                    <Separator />
+                                    <MenuItem Header="Select All" InputGestureText="Ctrl+A" Click="ContextMenuTargetSelectAll_Click" />
+                                    <MenuItem Header="Unselect All" Click="ContextMenuTargetUnselectAll_Click" />
                                 </ContextMenu>
                             </ListBox.ContextMenu>
                         </ListBox>
