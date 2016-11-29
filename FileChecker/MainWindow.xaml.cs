@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Collections.Specialized;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace DirectoryComparer
 {

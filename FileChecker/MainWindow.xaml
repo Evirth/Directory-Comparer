@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DirectoryComparer"
         mc:Ignorable="d"
-        Title="Directory Comparer" Height="720" Width="1080" MinHeight="720" ResizeMode="CanResize">
+        Title="Directory Comparer" Height="720" Width="1080" MinHeight="720" ResizeMode="CanMinimize">
 
     <Grid>
         <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -13,7 +13,7 @@
             <Button x:Name="SourcePathButton" Content="Browse" Height="20" Width="70" Margin="375,-30,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="SourcePathButton_Click" BorderBrush="#FFB4B4B4" Background="#FFE3E3E3" Foreground="Black"/>
             <TextBox x:Name="TargetPath" Height="20" Width="300" Margin="0,-30,70,0" VerticalAlignment="Top" HorizontalAlignment="Right" TextWrapping="Wrap" Text="Target path..." GotFocus="TargetPath_GotFocus" LostFocus="TargetPath_LostFocus" Focusable="False" Background="White"/>
             <Button x:Name="TargetPathButton" Content="Browse" Height="20" Width="70" Margin="0,-30,375,0" VerticalAlignment="Top" HorizontalAlignment="Right" Click="TargetPathButton_Click" BorderBrush="#FFB4B4B4" Background="#FFE3E3E3" Foreground="Black"/>
-            <TextBox x:Name="SourceFilter" Height="20" Width="250" Margin="145,50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Filter..." IsEnabled="False" GotFocus="SourceFilter_GotFocus" LostFocus="SourceFilter_LostFocus" TextChanged="SourceFilter_TextChanged" />
+            <TextBox x:Name="SourceFilter" Height="20"  Width="250" Margin="145,50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Filter..." IsEnabled="False" GotFocus="SourceFilter_GotFocus" LostFocus="SourceFilter_LostFocus" TextChanged="SourceFilter_TextChanged" />
             <TextBox x:Name="TargetFilter" Height="20" Width="250" Margin="0,-30,145,0" VerticalAlignment="Top" HorizontalAlignment="Right" TextWrapping="Wrap" Text="Filter..." IsEnabled="False" GotFocus="TargetFilter_GotFocus" LostFocus="TargetFilter_LostFocus" TextChanged="TargetFilter_TextChanged" />
 
             <TabControl x:Name="SourceFilesList" Height="400" Width="470" Margin="35,30,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Left" SelectionChanged="SourceFilesList_SelectionChanged">
