@@ -28,7 +28,7 @@
                                     <MenuItem Header="Copy" InputGestureText="Ctrl+C" Click="ContextMenuCopy_Click" />
                                     <Separator />
                                     <MenuItem Header="Select All" InputGestureText="Ctrl+A" Click="ContextMenuSourceSelectAll_Click" />
-                                    <MenuItem Header="Unselect All" Click="ContextMenuSourceUnselectAll_Click" />
+                                    <MenuItem Header="Unselect All" InputGestureText="Ctrl+D" Click="ContextMenuSourceUnselectAll_Click" />
                                 </ContextMenu>
                             </ListBox.ContextMenu>
                         </ListBox>
@@ -45,7 +45,7 @@
                                     <MenuItem Header="Copy" InputGestureText="Ctrl+C" Click="ContextMenuCopy_Click" />
                                     <Separator />
                                     <MenuItem Header="Select All" InputGestureText="Ctrl+A" Click="ContextMenuOverSelectAll_Click" />
-                                    <MenuItem Header="Unselect All" Click="ContextMenuOverUnselectAll_Click" />
+                                    <MenuItem Header="Unselect All" InputGestureText="Ctrl+D" Click="ContextMenuOverUnselectAll_Click" />
                                 </ContextMenu>
                             </ListBox.ContextMenu>
                         </ListBox>
@@ -59,7 +59,7 @@
                                     <MenuItem Header="Copy" InputGestureText="Ctrl+C" Click="ContextMenuCopy_Click" />
                                     <Separator />
                                     <MenuItem Header="Select All" InputGestureText="Ctrl+A" Click="ContextMenuMissingSelectAll_Click" />
-                                    <MenuItem Header="Unselect All" Click="ContextMenuMissingUnselectAll_Click" />
+                                    <MenuItem Header="Unselect All" InputGestureText="Ctrl+D" Click="ContextMenuMissingUnselectAll_Click" />
                                 </ContextMenu>
                             </ListBox.ContextMenu>
                         </ListBox>
@@ -75,15 +75,15 @@
                                 <ContextMenu>
                                     <MenuItem Header="Copy" InputGestureText="Ctrl+C" Click="ContextMenuCopy_Click" />
                                     <Separator />
-                                    <MenuItem Header="Select All" Click="ContextMenuTargetSelectAll_Click" />
-                                    <MenuItem Header="Unselect All" Click="ContextMenuTargetUnselectAll_Click" />
+                                    <MenuItem Header="Select All" InputGestureText="Ctrl+A" Click="ContextMenuTargetSelectAll_Click" />
+                                    <MenuItem Header="Unselect All" InputGestureText="Ctrl+D" Click="ContextMenuTargetUnselectAll_Click" />
                                 </ContextMenu>
                             </ListBox.ContextMenu>
                         </ListBox>
                     </Grid>
                 </TabItem>
             </TabControl>
-            <Button x:Name="CopyMissingsButton" Content="Copy missing files" Height="20" Width="140" Margin="200,25,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="CopyMissingsButton_Click" IsHitTestVisible="True" IsEnabled="False" BorderBrush="#FFB4B4B4" Background="#FFE3E3E3" Foreground="Black"/>
+            <Button x:Name="CopyMissingsButton" Content="Copy missing files" Height="20" Width="140" Margin="200,20,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="CopyMissingsButton_Click" IsHitTestVisible="True" IsEnabled="False" BorderBrush="#FFB4B4B4" Background="#FFE3E3E3" Foreground="Black"/>
         </StackPanel>
     </Grid>
 </Window>

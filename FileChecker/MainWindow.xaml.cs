@@ -2,8 +2,6 @@
 using System.Windows;
 using System.Windows.Input;
 using System.Collections.Specialized;
-using System.Collections.Generic;
-using System.Drawing;
 
 namespace DirectoryComparer
 {
@@ -11,6 +9,7 @@ namespace DirectoryComparer
     {
         FileListLoader _Files = new FileListLoader();
         StringCollection SelectedFilesToCopy = new StringCollection();
+        public int PrevSelectedTabIndex = 0;
 
         public MainWindow()
         {
@@ -152,7 +151,14 @@ namespace DirectoryComparer
                 {
                     string[] FilteredMissings = new string[MissingFilesTab.Items.Count];
                     MissingFilesTab.Items.CopyTo(FilteredMissings, 0);
-                    _Files.Copy(TargetPath.Text, _Dialog.SelectedPath, FilteredMissings);
+                    try
+                    {
+                        _Files.Copy(TargetPath.Text, _Dialog.SelectedPath, FilteredMissings);
+                    }
+                    catch (System.Exception exeption)
+                    {
+                        MessageBox.Show(exeption.Message, "Wystąpił błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
                 }
             }
             else
@@ -310,8 +316,9 @@ namespace DirectoryComparer
 
         private void SourceFilesList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (!SourceFilter.Text.Equals("Filter..."))
+            if (!SourceFilter.Text.Equals("Filter...") && PrevSelectedTabIndex != SourceFilesList.SelectedIndex)
             {
+                PrevSelectedTabIndex = SourceFilesList.SelectedIndex;
                 SourceFilesTab.Items.Clear();
                 foreach (string str in _Files.SourceFiles)
                 {
@@ -351,6 +358,10 @@ namespace DirectoryComparer
             {
                 SourceFilesTab.SelectAll();
             }
+            else if (Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.D))
+            {
+                SourceFilesTab.UnselectAll();
+            }
         }
 
         private void OverFilesTab_KeyDown(object sender, KeyEventArgs e)
@@ -369,6 +380,10 @@ namespace DirectoryComparer
             else if (Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.A))
             {
                 OverFilesTab.SelectAll();
+            }
+            else if (Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.D))
+            {
+                OverFilesTab.UnselectAll();
             }
         }
 
@@ -389,6 +404,10 @@ namespace DirectoryComparer
             {
                 MissingFilesTab.SelectAll();
             }
+            else if (Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.D))
+            {
+                MissingFilesTab.UnselectAll();
+            }
         }
 
         private void TargetFilesTab_KeyDown(object sender, KeyEventArgs e)
@@ -407,6 +426,10 @@ namespace DirectoryComparer
             else if (Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.A))
             {
                 TargetFilesTab.SelectAll();
+            }
+            else if (Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.D))
+            {
+                TargetFilesTab.UnselectAll();
             }
         }
 
