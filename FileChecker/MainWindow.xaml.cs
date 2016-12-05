@@ -339,6 +339,7 @@ namespace DirectoryComparer
                 }
                 SourceFilter.Text = "Filter..."; 
             }
+            PrevSelectedTabIndex = SourceFilesList.SelectedIndex;
         }
 
         private void SourceFilesTab_KeyDown(object sender, KeyEventArgs e)
