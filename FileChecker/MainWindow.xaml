@@ -3,20 +3,28 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DirectoryComparer"
         mc:Ignorable="d"
-        Title="Directory Comparer" Height="720" Width="1080" MinHeight="720" ResizeMode="CanMinimize">
+        Title="Directory Comparer" Height="720" Width="1080" MinHeight="620" MinWidth="700" ResizeMode="CanResize">
 
     <Grid>
-        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <TextBox x:Name="SourcePath" Height="20" Width="300" Margin="70,70,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Source path..." GotFocus="SourcePath_GotFocus" LostFocus="SourcePath_LostFocus" Focusable="False"/>
-            <Button x:Name="SourcePathButton" Content="Browse" Height="20" Width="70" Margin="375,-30,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="SourcePathButton_Click" BorderBrush="#FFB4B4B4" Background="#FFE3E3E3" Foreground="Black"/>
-            <TextBox x:Name="TargetPath" Height="20" Width="300" Margin="0,-30,70,0" VerticalAlignment="Top" HorizontalAlignment="Right" TextWrapping="Wrap" Text="Target path..." GotFocus="TargetPath_GotFocus" LostFocus="TargetPath_LostFocus" Focusable="False" Background="White"/>
-            <Button x:Name="TargetPathButton" Content="Browse" Height="20" Width="70" Margin="0,-30,375,0" VerticalAlignment="Top" HorizontalAlignment="Right" Click="TargetPathButton_Click" BorderBrush="#FFB4B4B4" Background="#FFE3E3E3" Foreground="Black"/>
-            <TextBox x:Name="SourceFilter" Height="20"  Width="250" Margin="145,50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Filter..." IsEnabled="False" GotFocus="SourceFilter_GotFocus" LostFocus="SourceFilter_LostFocus" TextChanged="SourceFilter_TextChanged" />
-            <TextBox x:Name="TargetFilter" Height="20" Width="250" Margin="0,-30,145,0" VerticalAlignment="Top" HorizontalAlignment="Right" TextWrapping="Wrap" Text="Filter..." IsEnabled="False" GotFocus="TargetFilter_GotFocus" LostFocus="TargetFilter_LostFocus" TextChanged="TargetFilter_TextChanged" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="210"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="70"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-            <TabControl x:Name="SourceFilesList" Height="400" Width="470" Margin="35,30,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Left" SelectionChanged="SourceFilesList_SelectionChanged">
+        <StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="80,0,80,0" MaxWidth="500">
+            <TextBox x:Name="SourcePath" ContextMenu="{x:Null}" Height="20" Margin="0,70,75,0" VerticalAlignment="Top" TextWrapping="NoWrap" Text="Source path..." GotFocus="SourcePath_GotFocus" LostFocus="SourcePath_LostFocus" Focusable="False" MouseDoubleClick="SourcePath_MouseDoubleClick"/>
+            <Button x:Name="SourcePathButton" Content="Browse" Height="20" Width="70" Margin="0,-30,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Click="SourcePathButton_Click" BorderBrush="#FFB4B4B4" Background="#FFE3E3E3" Foreground="Black"/>
+            <TextBox x:Name="SourceFilter" Height="20" Margin="50,50,50,0" VerticalAlignment="Top" TextWrapping="NoWrap" Text="Filter..." IsEnabled="False" GotFocus="SourceFilter_GotFocus" LostFocus="SourceFilter_LostFocus" TextChanged="SourceFilter_TextChanged" />
+        </StackPanel>
+
+        <DockPanel Grid.Column="0" Grid.Row="1">
+            <TabControl x:Name="SourceFilesList" MinHeight="300" Margin="35,0,35,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SelectionChanged="SourceFilesList_SelectionChanged">
                 <TabItem x:Name="SrcTab" Header="Source Files" Background="#FFE3E3E3">
                     <TabItem.BorderBrush>
                         <SolidColorBrush Color="#FFB4B4B4"/>
@@ -66,8 +74,20 @@
                     </Grid>
                 </TabItem>
             </TabControl>
+        </DockPanel>
 
-            <TabControl x:Name="TargetFileList" Height="400" Width="470" Margin="0,-400,35,0" VerticalAlignment="Stretch" HorizontalAlignment="Right">
+        <StackPanel Grid.Column="0" Grid.Row="2">
+            <Button x:Name="CopyMissingsButton" Content="Copy missing files" Width="135" Height="20" Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Click="CopyMissingsButton_Click" IsHitTestVisible="True" IsEnabled="False" BorderBrush="#FFB4B4B4" Background="#FFE3E3E3" Foreground="Black"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="80,0,80,0" MaxWidth="500">
+            <TextBox x:Name="TargetPath" ContextMenu="{x:Null}" Height="20" Margin="75,70,0,0" VerticalAlignment="Top" TextWrapping="NoWrap" Text="Target path..." GotFocus="TargetPath_GotFocus" LostFocus="TargetPath_LostFocus" Focusable="False" Background="White" MouseDoubleClick="TargetPath_MouseDoubleClick"/>
+            <Button x:Name="TargetPathButton" Content="Browse" Height="20" Width="70" Margin="0,-30,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="TargetPathButton_Click" BorderBrush="#FFB4B4B4" Background="#FFE3E3E3" Foreground="Black"/>
+            <TextBox x:Name="TargetFilter" Height="20" Margin="50,50,50,0" VerticalAlignment="Top" TextWrapping="NoWrap" Text="Filter..." IsEnabled="False" GotFocus="TargetFilter_GotFocus" LostFocus="TargetFilter_LostFocus" TextChanged="TargetFilter_TextChanged" />
+        </StackPanel>
+
+        <DockPanel Grid.Column="1" Grid.Row="1">
+            <TabControl x:Name="TargetFileList" MinHeight="300" Margin="35,0,35,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                 <TabItem x:Name="TrgTab" Header="Target Files" Background="#FFE3E3E3">
                     <Grid Background="White">
                         <ListBox x:Name="TargetFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Extended" MouseDoubleClick="TargetFilesTab_MouseDoubleClick" KeyDown="TargetFilesTab_KeyDown" SelectionChanged="TargetFilesTab_SelectionChanged">
@@ -83,7 +103,6 @@
                     </Grid>
                 </TabItem>
             </TabControl>
-            <Button x:Name="CopyMissingsButton" Content="Copy missing files" Height="20" Width="140" Margin="200,20,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="CopyMissingsButton_Click" IsHitTestVisible="True" IsEnabled="False" BorderBrush="#FFB4B4B4" Background="#FFE3E3E3" Foreground="Black"/>
-        </StackPanel>
+        </DockPanel>
     </Grid>
 </Window>

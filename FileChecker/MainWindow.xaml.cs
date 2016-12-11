@@ -5,11 +5,11 @@ using System.Collections.Specialized;
 
 namespace DirectoryComparer
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
-        FileListLoader _Files = new FileListLoader();
-        StringCollection SelectedFilesToCopy = new StringCollection();
-        public int PrevSelectedTabIndex = 0;
+        readonly FileListLoader _files = new FileListLoader();
+        readonly StringCollection _selectedFilesToCopy = new StringCollection();
+        public int PrevSelectedTabIndex;
 
         public MainWindow()
         {
@@ -34,38 +34,38 @@ namespace DirectoryComparer
 
         private void SourcePathButton_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.Forms.FolderBrowserDialog _Dialog = new System.Windows.Forms.FolderBrowserDialog();
-            _Dialog.ShowDialog();
-            if (!string.IsNullOrEmpty(_Dialog.SelectedPath))
+            System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
+            dialog.ShowDialog();
+            if (!string.IsNullOrEmpty(dialog.SelectedPath))
             {
                 CopyMissingsButton.IsEnabled = false;
                 SourceFilter.IsEnabled = true;
-                SourcePath.Text = _Dialog.SelectedPath;
+                SourcePath.Text = dialog.SelectedPath;
                 SourceFilesTab.Items.Clear();
                 OverFilesTab.Items.Clear();
                 MissingFilesTab.Items.Clear();
-                _Files.SourceFiles = FileListLoader.LoadFiles(SourcePath.Text);
+                _files.SourceFiles = FileListLoader.LoadFiles(SourcePath.Text);
 
-                foreach (var file in _Files.SourceFiles)
+                foreach (var file in _files.SourceFiles)
                 {
                     SourceFilesTab.Items.Add(file);
                 }
 
                 if (!TargetPath.Text.Equals("Target path..."))
                 {
-                    _Files.OverFiles = _Files.ShowFilesAExceptB(_Files.SourceFiles, _Files.TargetFiles);
-                    if (_Files.OverFiles.Count > 0)
+                    _files.OverFiles = _files.ShowFilesAExceptB(_files.SourceFiles, _files.TargetFiles);
+                    if (_files.OverFiles.Count > 0)
                     {
-                        foreach (var file in _Files.OverFiles)
+                        foreach (var file in _files.OverFiles)
                         {
                             OverFilesTab.Items.Add(file);
                         }
                     }
-                    _Files.MissingFiles = _Files.ShowFilesAExceptB(_Files.TargetFiles, _Files.SourceFiles);
-                    if (_Files.MissingFiles.Count > 0)
+                    _files.MissingFiles = _files.ShowFilesAExceptB(_files.TargetFiles, _files.SourceFiles);
+                    if (_files.MissingFiles.Count > 0)
                     {
                         CopyMissingsButton.IsEnabled = true;
-                        foreach (var file in _Files.MissingFiles)
+                        foreach (var file in _files.MissingFiles)
                         {
                             MissingFilesTab.Items.Add(file);
                         }
@@ -96,39 +96,39 @@ namespace DirectoryComparer
 
         private void TargetPathButton_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.Forms.FolderBrowserDialog _Dialog = new System.Windows.Forms.FolderBrowserDialog();
-            _Dialog.ShowDialog();
+            System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
+            dialog.ShowDialog();
 
-            if (!string.IsNullOrEmpty(_Dialog.SelectedPath))
+            if (!string.IsNullOrEmpty(dialog.SelectedPath))
             {
                 CopyMissingsButton.IsEnabled = false;
                 TargetFilter.IsEnabled = true;
-                TargetPath.Text = _Dialog.SelectedPath;
+                TargetPath.Text = dialog.SelectedPath;
                 TargetFilesTab.Items.Clear();
                 OverFilesTab.Items.Clear();
                 MissingFilesTab.Items.Clear();
-                _Files.TargetFiles = FileListLoader.LoadFiles(TargetPath.Text);
+                _files.TargetFiles = FileListLoader.LoadFiles(TargetPath.Text);
 
-                foreach (var file in _Files.TargetFiles)
+                foreach (var file in _files.TargetFiles)
                 {
                     TargetFilesTab.Items.Add(file);
                 }
 
                 if (!SourcePath.Text.Equals("Source path..."))
                 {
-                    _Files.OverFiles = _Files.ShowFilesAExceptB(_Files.SourceFiles, _Files.TargetFiles);
-                    if (_Files.OverFiles.Count > 0)
+                    _files.OverFiles = _files.ShowFilesAExceptB(_files.SourceFiles, _files.TargetFiles);
+                    if (_files.OverFiles.Count > 0)
                     {
-                        foreach (var file in _Files.OverFiles)
+                        foreach (var file in _files.OverFiles)
                         {
                             OverFilesTab.Items.Add(file);
                         }
                     }
-                    _Files.MissingFiles = _Files.ShowFilesAExceptB(_Files.TargetFiles, _Files.SourceFiles);
-                    if (_Files.MissingFiles.Count > 0)
+                    _files.MissingFiles = _files.ShowFilesAExceptB(_files.TargetFiles, _files.SourceFiles);
+                    if (_files.MissingFiles.Count > 0)
                     {
                         CopyMissingsButton.IsEnabled = true;
-                        foreach (var file in _Files.MissingFiles)
+                        foreach (var file in _files.MissingFiles)
                         {
                             MissingFilesTab.Items.Add(file);
                         }
@@ -145,15 +145,15 @@ namespace DirectoryComparer
         {
             if (MissingFilesTab.Items.Count > 0)
             {
-                System.Windows.Forms.FolderBrowserDialog _Dialog = new System.Windows.Forms.FolderBrowserDialog();
-                _Dialog.ShowDialog();
-                if (!string.IsNullOrEmpty(_Dialog.SelectedPath))
+                System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
+                dialog.ShowDialog();
+                if (!string.IsNullOrEmpty(dialog.SelectedPath))
                 {
-                    string[] FilteredMissings = new string[MissingFilesTab.Items.Count];
-                    MissingFilesTab.Items.CopyTo(FilteredMissings, 0);
+                    string[] filteredMissings = new string[MissingFilesTab.Items.Count];
+                    MissingFilesTab.Items.CopyTo(filteredMissings, 0);
                     try
                     {
-                        _Files.Copy(TargetPath.Text, _Dialog.SelectedPath, FilteredMissings);
+                        _files.Copy(TargetPath.Text, dialog.SelectedPath, filteredMissings);
                     }
                     catch (System.Exception exeption)
                     {
@@ -169,22 +169,46 @@ namespace DirectoryComparer
 
         private void SourceFilesTab_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Process.Start(SourcePath.Text + "\\" + SourceFilesTab.SelectedItem);
+            if (SourceFilesTab.SelectedItems.Count > 0)
+            {
+                foreach (string file in SourceFilesTab.SelectedItems)
+                {
+                    Process.Start(SourcePath.Text + "\\" + file);
+                } 
+            }
         }
 
         private void OverTab_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Process.Start(SourcePath.Text + "\\" + OverFilesTab.SelectedItem);
+            if (SourceFilesTab.SelectedItems.Count > 0)
+            {
+                foreach (string file in OverFilesTab.SelectedItems)
+                {
+                    Process.Start(SourcePath.Text + "\\" + file);
+                } 
+            }
         }
 
         private void MissingFilesTab_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Process.Start(TargetPath.Text + "\\" + MissingFilesTab.SelectedItem);
+            if (MissingFilesTab.SelectedItems.Count > 0)
+            {
+                foreach (string file in MissingFilesTab.SelectedItems)
+                {
+                    Process.Start(TargetPath.Text + "\\" + file);  
+                }
+            }
         }
 
         private void TargetFilesTab_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Process.Start(TargetPath.Text + "\\" + TargetFilesTab.SelectedItem);
+            if (TargetFilesTab.SelectedItems.Count > 0)
+            {
+                foreach (string file in TargetFilesTab.SelectedItems)
+                {
+                    Process.Start(TargetPath.Text + "\\" + file);
+                } 
+            }
         }
 
         private void SourceFilter_GotFocus(object sender, RoutedEventArgs e)
@@ -228,7 +252,7 @@ namespace DirectoryComparer
                     SourceFilesTab.Items.Clear();
                     if (!string.IsNullOrWhiteSpace(SourceFilter.Text))
                     {
-                        foreach (string str in _Files.SourceFiles)
+                        foreach (string str in _files.SourceFiles)
                         {
                             if (str.Contains(SourceFilter.Text))
                             {
@@ -238,7 +262,7 @@ namespace DirectoryComparer
                     }
                     else
                     {
-                        foreach (string str in _Files.SourceFiles)
+                        foreach (string str in _files.SourceFiles)
                         {
                             SourceFilesTab.Items.Add(str);
                         }
@@ -249,7 +273,7 @@ namespace DirectoryComparer
                     OverFilesTab.Items.Clear();
                     if (!string.IsNullOrWhiteSpace(SourceFilter.Text))
                     {
-                        foreach (string str in _Files.OverFiles)
+                        foreach (string str in _files.OverFiles)
                         {
                             if (str.Contains(SourceFilter.Text))
                             {
@@ -259,7 +283,7 @@ namespace DirectoryComparer
                     }
                     else
                     {
-                        foreach (string str in _Files.OverFiles)
+                        foreach (string str in _files.OverFiles)
                         {
                             OverFilesTab.Items.Add(str);
                         }
@@ -270,7 +294,7 @@ namespace DirectoryComparer
                     MissingFilesTab.Items.Clear();
                     if (!string.IsNullOrWhiteSpace(SourceFilter.Text))
                     {
-                        foreach (string str in _Files.MissingFiles)
+                        foreach (string str in _files.MissingFiles)
                         {
                             if (str.Contains(SourceFilter.Text))
                             {
@@ -280,7 +304,7 @@ namespace DirectoryComparer
                     }
                     else
                     {
-                        foreach (string str in _Files.MissingFiles)
+                        foreach (string str in _files.MissingFiles)
                         {
                             MissingFilesTab.Items.Add(str);
                         }
@@ -296,7 +320,7 @@ namespace DirectoryComparer
                 TargetFilesTab.Items.Clear();
                 if (!string.IsNullOrWhiteSpace(TargetFilter.Text))
                 {
-                    foreach (string str in _Files.TargetFiles)
+                    foreach (string str in _files.TargetFiles)
                     {
                         if (str.Contains(TargetFilter.Text))
                         {
@@ -306,7 +330,7 @@ namespace DirectoryComparer
                 }
                 else
                 {
-                    foreach (string str in _Files.TargetFiles)
+                    foreach (string str in _files.TargetFiles)
                     {
                         TargetFilesTab.Items.Add(str);
                     }
@@ -320,19 +344,19 @@ namespace DirectoryComparer
             {
                 PrevSelectedTabIndex = SourceFilesList.SelectedIndex;
                 SourceFilesTab.Items.Clear();
-                foreach (string str in _Files.SourceFiles)
+                foreach (string str in _files.SourceFiles)
                 {
                     SourceFilesTab.Items.Add(str);
                 }
                 if (!TargetPath.Text.Equals("Target path..."))
                 {
                     OverFilesTab.Items.Clear();
-                    foreach (string str in _Files.OverFiles)
+                    foreach (string str in _files.OverFiles)
                     {
                         OverFilesTab.Items.Add(str);
                     }
                     MissingFilesTab.Items.Clear();
-                    foreach (string str in _Files.MissingFiles)
+                    foreach (string str in _files.MissingFiles)
                     {
                         MissingFilesTab.Items.Add(str);
                     }
@@ -351,9 +375,9 @@ namespace DirectoryComparer
                     Process.Start(SourcePath.Text + "\\" + file);
                 }
             }
-            else if ((Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.C)) && SelectedFilesToCopy.Count > 0)
+            else if ((Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.C)) && _selectedFilesToCopy.Count > 0)
             {
-                Clipboard.SetFileDropList(SelectedFilesToCopy);
+                Clipboard.SetFileDropList(_selectedFilesToCopy);
             }
             else if (Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.A))
             {
@@ -374,9 +398,9 @@ namespace DirectoryComparer
                     Process.Start(SourcePath.Text + "\\" + file);
                 }
             }
-            else if ((Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.C)) && SelectedFilesToCopy.Count > 0)
+            else if ((Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.C)) && _selectedFilesToCopy.Count > 0)
             {
-                Clipboard.SetFileDropList(SelectedFilesToCopy);
+                Clipboard.SetFileDropList(_selectedFilesToCopy);
             }
             else if (Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.A))
             {
@@ -397,9 +421,9 @@ namespace DirectoryComparer
                     Process.Start(TargetPath.Text + "\\" + file);
                 }
             }
-            else if ((Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.C)) && SelectedFilesToCopy.Count > 0)
+            else if ((Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.C)) && _selectedFilesToCopy.Count > 0)
             {
-                Clipboard.SetFileDropList(SelectedFilesToCopy);
+                Clipboard.SetFileDropList(_selectedFilesToCopy);
             }
             else if (Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.A))
             {
@@ -420,9 +444,9 @@ namespace DirectoryComparer
                     Process.Start(TargetPath.Text + "\\" + file);
                 }
             }
-            else if ((Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.C)) && SelectedFilesToCopy.Count > 0)
+            else if ((Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.C)) && _selectedFilesToCopy.Count > 0)
             {
-                Clipboard.SetFileDropList(SelectedFilesToCopy);
+                Clipboard.SetFileDropList(_selectedFilesToCopy);
             }
             else if (Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.A))
             {
@@ -436,9 +460,9 @@ namespace DirectoryComparer
 
         private void ContextMenuCopy_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedFilesToCopy.Count > 0)
+            if (_selectedFilesToCopy.Count > 0)
             {
-                Clipboard.SetFileDropList(SelectedFilesToCopy);
+                Clipboard.SetFileDropList(_selectedFilesToCopy);
             }
         }
 
@@ -484,37 +508,53 @@ namespace DirectoryComparer
 
         private void SourceFilesTab_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            SelectedFilesToCopy.Clear();
+            _selectedFilesToCopy.Clear();
             foreach (string file in SourceFilesTab.SelectedItems)
             {
-                SelectedFilesToCopy.Add(SourcePath.Text + "\\" + file);
+                _selectedFilesToCopy.Add(SourcePath.Text + "\\" + file);
             }
         }
 
         private void OverFilesTab_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            SelectedFilesToCopy.Clear();
+            _selectedFilesToCopy.Clear();
             foreach (string file in OverFilesTab.SelectedItems)
             {
-                SelectedFilesToCopy.Add(SourcePath.Text + "\\" + file);
+                _selectedFilesToCopy.Add(SourcePath.Text + "\\" + file);
             }
         }
 
         private void MissingFilesTab_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            SelectedFilesToCopy.Clear();
+            _selectedFilesToCopy.Clear();
             foreach (string file in MissingFilesTab.SelectedItems)
             {
-                SelectedFilesToCopy.Add(TargetPath.Text + "\\" + file);
+                _selectedFilesToCopy.Add(TargetPath.Text + "\\" + file);
             }
         }
 
         private void TargetFilesTab_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            SelectedFilesToCopy.Clear();
+            _selectedFilesToCopy.Clear();
             foreach (string file in TargetFilesTab.SelectedItems)
             {
-                SelectedFilesToCopy.Add(TargetPath.Text + "\\" + file);
+                _selectedFilesToCopy.Add(TargetPath.Text + "\\" + file);
+            }
+        }
+
+        private void SourcePath_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (!SourcePath.Text.Equals("Source path..."))
+            {
+                Process.Start(SourcePath.Text);
+            }
+        }
+
+        private void TargetPath_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (!TargetPath.Text.Equals("Target path..."))
+            {
+                Process.Start(TargetPath.Text);
             }
         }
     }

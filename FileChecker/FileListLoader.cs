@@ -25,8 +25,7 @@ namespace DirectoryComparer
 
         public List<string> ShowFilesAExceptB(List<string> pA, List<string> pB)
         {
-            List<string> files = new List<string>();
-            files = pA.Except(pB).ToList();
+            var files = pA.Except(pB).ToList();
             files.Sort();
             return files;
         }
