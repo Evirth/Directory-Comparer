@@ -37,6 +37,8 @@
                                     <Separator />
                                     <MenuItem Header="Select All" InputGestureText="Ctrl+A" Click="ContextMenuSourceSelectAll_Click" />
                                     <MenuItem Header="Unselect All" InputGestureText="Ctrl+D" Click="ContextMenuSourceUnselectAll_Click" />
+                                    <Separator />
+                                    <MenuItem Header="Open containing folder" Click="ContextMenuSourceContaining_Click" />
                                 </ContextMenu>
                             </ListBox.ContextMenu>
                         </ListBox>
@@ -47,13 +49,15 @@
                         <SolidColorBrush Color="#FFE3E3E3"/>
                     </TabItem.Background>
                     <Grid Background="White">
-                        <ListBox x:Name="OverFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Extended" MouseDoubleClick="OverTab_MouseDoubleClick" KeyDown="OverFilesTab_KeyDown" SelectionChanged="OverFilesTab_SelectionChanged">
+                        <ListBox x:Name="OverFilesTab" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Extended" MouseDoubleClick="OverFilesTab_MouseDoubleClick" KeyDown="OverFilesTab_KeyDown" SelectionChanged="OverFilesTab_SelectionChanged">
                             <ListBox.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem Header="Copy" InputGestureText="Ctrl+C" Click="ContextMenuCopy_Click" />
                                     <Separator />
                                     <MenuItem Header="Select All" InputGestureText="Ctrl+A" Click="ContextMenuOverSelectAll_Click" />
                                     <MenuItem Header="Unselect All" InputGestureText="Ctrl+D" Click="ContextMenuOverUnselectAll_Click" />
+                                    <Separator />
+                                    <MenuItem Header="Open containing folder" Click="ContextMenuOverContaining_Click" />
                                 </ContextMenu>
                             </ListBox.ContextMenu>
                         </ListBox>
@@ -68,6 +72,8 @@
                                     <Separator />
                                     <MenuItem Header="Select All" InputGestureText="Ctrl+A" Click="ContextMenuMissingSelectAll_Click" />
                                     <MenuItem Header="Unselect All" InputGestureText="Ctrl+D" Click="ContextMenuMissingUnselectAll_Click" />
+                                    <Separator />
+                                    <MenuItem Header="Open containing folder" Click="ContextMenuMissingContaining_Click" />
                                 </ContextMenu>
                             </ListBox.ContextMenu>
                         </ListBox>
@@ -97,6 +103,8 @@
                                     <Separator />
                                     <MenuItem Header="Select All" InputGestureText="Ctrl+A" Click="ContextMenuTargetSelectAll_Click" />
                                     <MenuItem Header="Unselect All" InputGestureText="Ctrl+D" Click="ContextMenuTargetUnselectAll_Click" />
+                                    <Separator />
+                                    <MenuItem Header="Open containing folder" Click="ContextMenuTargetContaining_Click" />
                                 </ContextMenu>
                             </ListBox.ContextMenu>
                         </ListBox>

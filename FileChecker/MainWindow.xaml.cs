@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 using System.Collections.Specialized;
+using System.Windows.Controls;
 
 namespace DirectoryComparer
 {
@@ -178,9 +179,9 @@ namespace DirectoryComparer
             }
         }
 
-        private void OverTab_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void OverFilesTab_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (SourceFilesTab.SelectedItems.Count > 0)
+            if (OverFilesTab.SelectedItems.Count > 0)
             {
                 foreach (string file in OverFilesTab.SelectedItems)
                 {
@@ -243,7 +244,7 @@ namespace DirectoryComparer
             }
         }
 
-        private void SourceFilter_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void SourceFilter_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (!SourceFilter.Text.Equals("Filter...") && !SourcePath.Text.Equals("Source path..."))
             {
@@ -313,7 +314,7 @@ namespace DirectoryComparer
             }
         }
 
-        private void TargetFilter_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void TargetFilter_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (!TargetFilter.Text.Equals("Filter..."))
             {
@@ -338,7 +339,7 @@ namespace DirectoryComparer
             }
         }
 
-        private void SourceFilesList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void SourceFilesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!SourceFilter.Text.Equals("Filter...") && PrevSelectedTabIndex != SourceFilesList.SelectedIndex)
             {
@@ -466,6 +467,20 @@ namespace DirectoryComparer
             }
         }
 
+        private void ContextMenuSourceContaining_Click(object sender, RoutedEventArgs e)
+        {
+            string lastSelected = SourceFilesTab.SelectedItems[SourceFilesTab.SelectedItems.Count - 1].ToString();
+            if (lastSelected.Contains("\\"))
+            {
+                lastSelected = lastSelected.Remove(lastSelected.LastIndexOf("\\")); 
+            }
+            else
+            {
+                lastSelected = "";
+            }
+            Process.Start(SourcePath.Text + "\\" + lastSelected);
+        }
+
         private void ContextMenuSourceSelectAll_Click(object sender, RoutedEventArgs e)
         {
             SourceFilesTab.SelectAll();
@@ -474,6 +489,20 @@ namespace DirectoryComparer
         private void ContextMenuSourceUnselectAll_Click(object sender, RoutedEventArgs e)
         {
             SourceFilesTab.UnselectAll();
+        }
+
+        private void ContextMenuOverContaining_Click(object sender, RoutedEventArgs e)
+        {
+            string lastSelected = OverFilesTab.SelectedItems[OverFilesTab.SelectedItems.Count - 1].ToString();
+            if (lastSelected.Contains("\\"))
+            {
+                lastSelected = lastSelected.Remove(lastSelected.LastIndexOf("\\"));
+            }
+            else
+            {
+                lastSelected = "";
+            }
+            Process.Start(SourcePath.Text + "\\" + lastSelected);
         }
 
         private void ContextMenuOverSelectAll_Click(object sender, RoutedEventArgs e)
@@ -486,6 +515,20 @@ namespace DirectoryComparer
             OverFilesTab.UnselectAll();
         }
 
+        private void ContextMenuMissingContaining_Click(object sender, RoutedEventArgs e)
+        {
+            string lastSelected = MissingFilesTab.SelectedItems[MissingFilesTab.SelectedItems.Count - 1].ToString();
+            if (lastSelected.Contains("\\"))
+            {
+                lastSelected = lastSelected.Remove(lastSelected.LastIndexOf("\\"));
+            }
+            else
+            {
+                lastSelected = "";
+            }
+            Process.Start(TargetPath.Text + "\\" + lastSelected);
+        }
+
         private void ContextMenuMissingSelectAll_Click(object sender, RoutedEventArgs e)
         {
             MissingFilesTab.SelectAll();
@@ -494,6 +537,20 @@ namespace DirectoryComparer
         private void ContextMenuMissingUnselectAll_Click(object sender, RoutedEventArgs e)
         {
             MissingFilesTab.UnselectAll();
+        }
+        
+        private void ContextMenuTargetContaining_Click(object sender, RoutedEventArgs e)
+        {
+            string lastSelected = TargetFilesTab.SelectedItems[TargetFilesTab.SelectedItems.Count - 1].ToString();
+            if (lastSelected.Contains("\\"))
+            {
+                lastSelected = lastSelected.Remove(lastSelected.LastIndexOf("\\"));
+            }
+            else
+            {
+                lastSelected = "";
+            }
+            Process.Start(TargetPath.Text + "\\" + lastSelected);
         }
 
         private void ContextMenuTargetSelectAll_Click(object sender, RoutedEventArgs e)
@@ -506,7 +563,7 @@ namespace DirectoryComparer
             TargetFilesTab.UnselectAll();
         }
 
-        private void SourceFilesTab_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void SourceFilesTab_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedFilesToCopy.Clear();
             foreach (string file in SourceFilesTab.SelectedItems)
@@ -515,7 +572,7 @@ namespace DirectoryComparer
             }
         }
 
-        private void OverFilesTab_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void OverFilesTab_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedFilesToCopy.Clear();
             foreach (string file in OverFilesTab.SelectedItems)
@@ -524,7 +581,7 @@ namespace DirectoryComparer
             }
         }
 
-        private void MissingFilesTab_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void MissingFilesTab_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedFilesToCopy.Clear();
             foreach (string file in MissingFilesTab.SelectedItems)
@@ -533,7 +590,7 @@ namespace DirectoryComparer
             }
         }
 
-        private void TargetFilesTab_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void TargetFilesTab_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedFilesToCopy.Clear();
             foreach (string file in TargetFilesTab.SelectedItems)
