@@ -469,16 +469,12 @@ namespace DirectoryComparer
 
         private void ContextMenuSourceContaining_Click(object sender, RoutedEventArgs e)
         {
-            string lastSelected = SourceFilesTab.SelectedItems[SourceFilesTab.SelectedItems.Count - 1].ToString();
-            if (lastSelected.Contains("\\"))
+            string lastSelected = null;
+            if (SourceFilesTab.SelectedItems.Count > 0)
             {
-                lastSelected = lastSelected.Remove(lastSelected.LastIndexOf("\\")); 
+                lastSelected = SourceFilesTab.SelectedItems[SourceFilesTab.SelectedItems.Count - 1].ToString();
             }
-            else
-            {
-                lastSelected = "";
-            }
-            Process.Start(SourcePath.Text + "\\" + lastSelected);
+            Process.Start("explorer.exe", $"/select, {SourcePath.Text + "\\" + lastSelected}");
         }
 
         private void ContextMenuSourceSelectAll_Click(object sender, RoutedEventArgs e)
@@ -493,16 +489,12 @@ namespace DirectoryComparer
 
         private void ContextMenuOverContaining_Click(object sender, RoutedEventArgs e)
         {
-            string lastSelected = OverFilesTab.SelectedItems[OverFilesTab.SelectedItems.Count - 1].ToString();
-            if (lastSelected.Contains("\\"))
+            string lastSelected = null;
+            if (OverFilesTab.SelectedItems.Count > 0)
             {
-                lastSelected = lastSelected.Remove(lastSelected.LastIndexOf("\\"));
+                lastSelected = OverFilesTab.SelectedItems[OverFilesTab.SelectedItems.Count - 1].ToString();
             }
-            else
-            {
-                lastSelected = "";
-            }
-            Process.Start(SourcePath.Text + "\\" + lastSelected);
+            Process.Start("explorer.exe", $"/select, {SourcePath.Text + "\\" + lastSelected}");
         }
 
         private void ContextMenuOverSelectAll_Click(object sender, RoutedEventArgs e)
@@ -517,16 +509,12 @@ namespace DirectoryComparer
 
         private void ContextMenuMissingContaining_Click(object sender, RoutedEventArgs e)
         {
-            string lastSelected = MissingFilesTab.SelectedItems[MissingFilesTab.SelectedItems.Count - 1].ToString();
-            if (lastSelected.Contains("\\"))
+            string lastSelected = null;
+            if (MissingFilesTab.SelectedItems.Count > 0)
             {
-                lastSelected = lastSelected.Remove(lastSelected.LastIndexOf("\\"));
+                lastSelected = MissingFilesTab.SelectedItems[MissingFilesTab.SelectedItems.Count - 1].ToString();
             }
-            else
-            {
-                lastSelected = "";
-            }
-            Process.Start(TargetPath.Text + "\\" + lastSelected);
+            Process.Start("explorer.exe", $"/select, {TargetPath.Text + "\\" + lastSelected}");
         }
 
         private void ContextMenuMissingSelectAll_Click(object sender, RoutedEventArgs e)
@@ -541,16 +529,12 @@ namespace DirectoryComparer
         
         private void ContextMenuTargetContaining_Click(object sender, RoutedEventArgs e)
         {
-            string lastSelected = TargetFilesTab.SelectedItems[TargetFilesTab.SelectedItems.Count - 1].ToString();
-            if (lastSelected.Contains("\\"))
+            string lastSelected = null;
+            if (TargetFilesTab.SelectedItems.Count > 0)
             {
-                lastSelected = lastSelected.Remove(lastSelected.LastIndexOf("\\"));
+                lastSelected = TargetFilesTab.SelectedItems[TargetFilesTab.SelectedItems.Count - 1].ToString(); 
             }
-            else
-            {
-                lastSelected = "";
-            }
-            Process.Start(TargetPath.Text + "\\" + lastSelected);
+            Process.Start("explorer.exe", $"/select, {TargetPath.Text + "\\" + lastSelected}");
         }
 
         private void ContextMenuTargetSelectAll_Click(object sender, RoutedEventArgs e)
